@@ -1,0 +1,67 @@
+CREATE PROC [OBTENER_ALUMNOS]
+AS
+select * from Alumnos
+order by 3
+
+CREATE PROC OBTENER_BARRIOS
+AS
+select id_barrio,barrio from barrios
+order by 2
+
+CREATE PROC OBTENER_ESTADOS_CIVIL
+AS
+    SELECT * FROM estados_civil ORDER BY 2
+
+CREATE PROC OBTENER_SITUACION_HAB
+AS
+    SELECT * FROM situaciones_hab ORDER BY 2
+
+CREATE PROC OBTENER_SITUACION_LAB
+AS
+    SELECT * FROM situaciones_lab ORDER BY 2
+
+CREATE PROC OBTENER_TECNICATURAS
+AS
+    SELECT * FROM tecnicaturas
+    WHERE id_tecnicatura != 6
+    ORDER BY 2
+
+
+CREATE PROC OBTENER_TIPOS_DNI
+AS
+    SELECT * FROM tipos_dni ORDER BY 2
+
+CREATE PROCEDURE PROXIMO_ALUMNO
+@next int OUTPUT
+AS
+BEGIN
+	SET @next = (SELECT MAX(id_alumno)+1  FROM Alumnos);
+END
+
+CREATE PROC LISTA_ALUMNOS
+AS
+    SELECT apellido,nombre FROM Alumnos
+    where Alta = 'true'
+    order by 1
+
+CREATE PROC LISTA_ALUMNOS_BAJA
+AS
+    SELECT apellido,nombre FROM Alumnos
+    where Alta = 'false'
+    order by 1
+
+CREATE PROC SP_ALTA_ALUMNO
+@apellido varchar(30),
+@nombre varchar(30)
+as
+    update Alumnos
+    set Alta = 1
+    where apellido = @apellido and nombre = @nombre
+
+CREATE PROC SP_BAJA_ALUMNO
+@apellido varchar(30),
+@nombre varchar(30)
+as
+    update Alumnos
+    set Alta = 0
+    where apellido = @apellido and nombre = @nombre

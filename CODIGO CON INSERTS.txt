@@ -1,0 +1,1037 @@
+/* Provincia */
+create table provincias(
+id_provincia int,
+constraint pk_id_provincia primary key (id_provincia),
+provincia varchar (50),
+)
+
+/* Localidades */
+create table localidades(
+id_localidad int,
+constraint pk_id_localidades primary key (id_localidad),
+localidad varchar (40),
+id_provincia int,
+constraint fk_id_provincia foreign key (id_provincia) references
+provincias (id_provincia)
+)
+
+/* Barrios */
+create table barrios(
+id_barrio int,
+constraint pk_id_barrio primary key (id_barrio),
+barrio varchar(40),
+id_localidad int,
+constraint fk_localidad foreign key (id_localidad) references
+localidades (id_localidad)
+)
+
+create table tipos_examenes(
+    id_tipo_examen int,
+    descripcion varchar(30),
+
+    constraint pk_tipos_examenes primary key (id_tipo_examen),
+)
+
+create table tecnicaturas(
+    id_tecnicatura int identity (1,1),
+    descripcion varchar(50),
+
+    constraint pk_carreras primary key (id_tecnicatura),
+)
+
+create table materias(
+    id_materia int identity (1,1),
+    nombre_materia varchar(50),
+    id_tecnicatura int,
+
+    constraint pk_materias primary key (id_materia),
+    constraint fk_materias_carreras foreign key (id_tecnicatura) REFERENCES tecnicaturas(id_tecnicatura)
+)
+
+create table estados_academicos(
+    id_estado int,
+    descripcion varchar(20),
+
+    constraint pk_estados_academicos primary key (id_estado),
+)
+
+create table cursos(
+    id_curso int,
+    descripcion varchar(50),
+
+    constraint pk_cursos primary key (id_curso),
+)
+
+create table tipos_dni(
+    id_tipo_dni int,
+    descripcion varchar(30),
+
+    constraint pk_tipos_dni primary key (id_tipo_dni),
+)
+
+create table estados_civil(
+    id_estado_civil int,
+    descripcion varchar(30),
+
+    constraint pk_estados_civil primary key (id_estado_civil),
+)
+
+create table situaciones_hab(
+    id_situacion_habitacional int,
+    descripcion varchar(30),
+
+    constraint pk_situaciones_hab primary key (id_situacion_habitacional)
+)
+
+create table situaciones_lab(
+    id_situacion_laboral int,
+    descripcion varchar(30),
+
+    constraint pl_situaciones_lab primary key (id_situacion_laboral),
+)
+
+create table Alumnos(
+    id_alumno int identity (1,1),
+    nombre varchar(30),
+    apellido varchar(30),
+    id_tipo_dni int,
+    nro_dni varchar(10),
+    id_tecnicatura int,
+    fec_nac datetime,
+    id_estado_civil int,
+    id_situacion_laboral int,
+    id_situacion_habitacional int,
+    id_barrio int,
+    direccion varchar(100),
+    Alta bit,
+
+    constraint pk_alumnos primary key (id_alumno),
+    constraint fk_dni_alumnos foreign key (id_tipo_dni) REFERENCES tipos_dni(id_tipo_dni),
+    constraint fk_carreras_alumnos foreign key (id_tecnicatura) References tecnicaturas(id_tecnicatura),
+    constraint fk_estado_civil_alumnos foreign key (id_estado_civil) references estados_civil(id_estado_civil),
+    constraint fk_situacion_lab_alumnos foreign key(id_situacion_laboral) references situaciones_lab(id_situacion_laboral),
+    constraint fk_situacion_hab_alumnos foreign key(id_situacion_habitacional) references situaciones_hab(id_situacion_habitacional),
+    constraint fk_barrios_alumnos foreign key (id_barrio) references barrios(id_barrio),
+)
+
+create table profesores(
+    id_profesor int identity (1,1),
+    nombre varchar(30),
+    apellido varchar(30),
+    id_tipo_dni int,
+    nro_dni varchar(10),
+    fec_nac datetime,
+    id_estado_civil int,
+    id_barrio int,
+    direccion varchar(100),
+    titulo_univ varchar(50),
+
+    constraint pk_profesores primary key (id_profesor),
+    constraint fk_dni_profesores foreign key (id_tipo_dni) REFERENCES tipos_dni(id_tipo_dni),
+    constraint fk_estado_civil_profesores foreign key (id_estado_civil) references estados_civil(id_estado_civil),
+    constraint fk_barrios_profesores foreign key (id_barrio) references barrios(id_barrio),
+)
+
+create table materias_profesores(
+    id_materia_profesor int identity (1,1),
+    año int,
+    id_profesor int,
+    id_materia int,
+
+    constraint pk_materias_profesores primary key (id_materia_profesor),
+    constraint fk_profesor_mp foreign key (id_profesor) references profesores(id_profesor),
+    constraint fk_materias_mp foreign key (id_materia) references materias(id_materia),
+)
+
+create table alumnos_materias(
+    id_alumno_materia int identity (1,1),
+    año int,
+    id_estado int,
+    id_alumno int,
+    id_materia int,
+    id_curso int,
+
+    constraint pk_alumnos_materias primary key (id_alumno_materia),
+    constraint fk_estados_am foreign key (id_estado) references estados_academicos(id_estado),
+    constraint fk_alumnos_am foreign key (id_alumno) references Alumnos(id_alumno),
+    constraint fk_materias_am foreign key (id_materia) references materias(id_materia),
+    constraint fk_cursos_am foreign key (id_curso) references cursos(id_curso),
+)
+
+create table examenes(
+    id_examen int identity (1,1),
+    id_tipo_examen int,
+    id_materia int,
+    fecha datetime,
+
+    constraint pk_examenes primary key (id_examen),
+    constraint fk_tipos_examen_detalle_examenes foreign key (id_tipo_examen) references tipos_examenes(id_tipo_examen),
+    constraint fk_materias_detalle_examenes foreign key (id_materia) references materias(id_materia),
+
+)
+
+create table detalle_examenes(
+    id_detalle int identity (1,1),
+    id_examen int,
+    id_alumno int,
+    nota decimal,
+
+    constraint pk_detalle_examenes primary key (id_detalle),
+    constraint fk_examenes_detalles foreign key (id_examen) REFERENCES examenes(id_examen),
+    constraint fk_alumnos_examenes foreign key (id_alumno) references Alumnos(id_alumno),
+
+)
+
+******************************************************************************
+*****************************  INSERTS ***************************************
+******************************************************************************
+
+SET Dateformat dmy
+
+
+/* Provincias */
+INSERT INTO provincias (id_provincia, provincia)
+values (1, 'Cordoba')
+INSERT INTO provincias (id_provincia, provincia)
+values (2, 'Buenos Aires')
+INSERT INTO provincias (id_provincia, provincia)
+values (3, 'Santa Fe')
+INSERT INTO provincias (id_provincia, provincia)
+values (4, 'Mendoza')
+INSERT INTO provincias (id_provincia, provincia)
+values (5, 'San Luis')
+INSERT INTO provincias (id_provincia, provincia)
+values (6, 'San Juan')
+
+/* Localidades */
+
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (1,'Cordoba',1)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (2,'Rio Ceballos',1)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (3,'Saldan',1)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (4,'Agua de Oro',1)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (5,'Salsipuedes',1)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (6,'Villa Allende',1)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (7,'Mendiolaza',1)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (8,'Arguello',1)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (9,'El Pueblito',1)
+
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (10,'Pinamar',2)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (11,'Mar del Plata',2)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (12,'Mar de las Pampas',2)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (13,'Pehuajo',2)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (14,'Pilar',2)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (15,'Junin',2)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (16,'La Plata',2)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (17,'Villa Gesell',2)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (18,'Zarate',2)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (19,'Ciudad de Buenos Aires',2)
+
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (20,'Rosario',3)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (21,'Santa Fe',3)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (22,'Venado Tuerto',3)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (23,'Arroyo Seco',3)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (24,'Florencia',3)
+
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (25,'Godoy Cruz',4)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (26,'San Rafael',4)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (27,'San Martin',4)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (28,'Valle Grande',4)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (29,'Uspallata',4)
+
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (30,'Merlo',5)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (31,'Villa Mercedes',5)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (32,'Los Molles',5)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (33,'Concaran',5)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (34,'El Morro',5)
+
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (35,'Caucete',6)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (36,'Vallecito',6)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (37,'Rivadavia',6)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (38,'Zonda',6)
+INSERT INTO localidades (id_localidad, localidad, id_provincia)
+values (39,'Iglesia',6)
+
+/* Barrios */
+
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (1,'Centro',1)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (2,'Centro',2)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (3,'Centro',3)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (4,'Centro',4)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (5,'Centro',5)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (6,'Centro',6)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (7,'Centro',7)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (8,'Centro',8)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (9,'Centro',9)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (10,'Centro',10)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (11,'Centro',11)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (12,'Centro',12)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (13,'Centro',13)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (14,'Centro',14)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (15,'Centro',15)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (16,'Centro',16)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (17,'Centro',17)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (18,'Centro',18)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (19,'Centro',19)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (20,'Centro',20)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (21,'Centro',21)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (22,'Centro',22)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (23,'Centro',23)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (24,'Centro',24)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (25,'Centro',25)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (26,'Centro',26)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (27,'Centro',27)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (28,'Centro',28)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (29,'Centro',29)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (30,'Centro',30)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (31,'Centro',31)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (32,'Centro',32)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (33,'Centro',33)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (34,'Centro',34)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (35,'Centro',35)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (36,'Centro',36)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (37,'Centro',37)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (38,'Centro',38)
+INSERT INTO barrios (id_barrio, barrio, id_localidad)
+values (39,'Centro',39)
+
+
+/* Tipos Examenes */
+
+INSERT INTO tipos_examenes (id_tipo_examen, descripcion) VALUES (1,'Final')
+INSERT INTO tipos_examenes  (id_tipo_examen, descripcion) VALUES (2,'Parcial')
+INSERT INTO tipos_examenes (id_tipo_examen, descripcion) VALUES (3, 'Recuperatorio')
+INSERT INTO tipos_examenes (id_tipo_examen, descripcion) VALUES (4, 'Todos')
+
+/* Tecnicaturas */
+insert into tecnicaturas (descripcion)
+values ('Programacion');
+insert into tecnicaturas (descripcion)
+values ('Mecatronica');
+insert into tecnicaturas (descripcion)
+values ('Telecomunicaciones');
+insert into tecnicaturas (descripcion)
+values ('Industrias Alimentarias');
+insert into tecnicaturas (descripcion)
+values ('Mantenimiento Industrial');
+insert into tecnicaturas (descripcion)
+values ('Todas');
+
+/* Materias */
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Programacion I',1);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Laboratorio de Computacion III',1);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Laboratorio de Computacion II',1);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Ingles I',1);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Metodologia de la Investigacion',1);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Mecatronica I',2);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Mecanica I',2);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Matematica',2);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Fisica I',2);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Fisica II',2);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Ingles I',3);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Ingles II',3);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Comunicaciones II',3);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Comunicaciones I',3);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Informatica',3);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Quimica Inorganica',4);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Quimica Organica',4);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Bromatologia',4);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Ingles',4);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Quimica Basica',4);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Electrotecnia',5);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Mantenimiento Industrial II',5);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Mantenimiento Industrial I',5);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Mecanica',5);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Matematica',5);
+insert into materias (nombre_materia, id_tecnicatura)
+values ('Quimica',5);
+
+
+/* Estados Academicos */
+insert into estados_academicos (id_estado, descripcion)
+values (1, 'Libre');
+insert into estados_academicos (id_estado, descripcion)
+values (2, 'Regular');
+insert into estados_academicos (id_estado, descripcion)
+values (3, 'Aprobado');
+
+/* Cursos */
+
+insert into cursos (id_curso, descripcion)
+values (1, '1W4');
+insert into cursos (id_curso, descripcion)
+values (2, '2W4');
+insert into cursos (id_curso, descripcion)
+values (3, '1W3');
+insert into cursos (id_curso, descripcion)
+values (4, '2W3');
+
+/* Tipos de DNI */
+insert into tipos_dni (id_tipo_dni, descripcion)
+values (1,'DNI');
+insert into tipos_dni (id_tipo_dni, descripcion)
+values (2,'Pasaporte');
+insert into tipos_dni (id_tipo_dni, descripcion)
+values (3,'LC');
+
+/* Estado Civil */
+
+insert into estados_civil (id_estado_civil, descripcion)
+values (1,'Soltero');
+insert into estados_civil (id_estado_civil, descripcion)
+values (2,'Casado');
+insert into estados_civil (id_estado_civil, descripcion)
+values (3,'Divorciado');
+
+/* Situaciones Habitacionales */
+
+insert into situaciones_hab (id_situacion_habitacional, descripcion)
+values (1,'Independiente');
+insert into situaciones_hab (id_situacion_habitacional, descripcion)
+values (2,'Dependiente');
+
+/* Situaciones Laborales */
+
+insert into situaciones_lab (id_situacion_laboral, descripcion)
+values (1,'Desempleado');
+insert into situaciones_lab (id_situacion_laboral, descripcion)
+values (2,'Empleado');
+
+/* Alumnos */
+
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta)
+values ('Lionel','Messi',1,123456,1,'24/6/1987',2,2,1,20,'Av. San Martin 1523', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta)
+values ('Juan','Perez',1,654321,1,'3/7/2001',1,1,2,15,'Jujuy 200', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Clay', 'Mulvihill', 2, '8620119591', 4, '28/5/1997', 2, 2, 2, 23, '92530 Washington Drive', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Clem', 'Rogan', 2, '2341150209', 5, '8/11/2010', 1, 2, 2, 3, '6699 Caliangt Trail', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Andrey', 'Stittle', 3, '9068661434', 3, '13/2/1994', 2, 2, 1, 13, '75 Bluejay Pass', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Melisenda', 'Pantling', 1, '3094272835', 5, '8/8/1955', 2, 1, 1, 37, '491 Holy Cross Trail', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Melba', 'Esp', 3, '9856365767', 5, '5/12/1949', 3, 1, 2, 30, '95 Columbus Alley', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Liza', 'Haining', 3, '8538284509', 2, '18/2/2021', 2, 2, 2, 38, '3796 Rockefeller Crossing', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Mariele', 'Bavage', 3, '0414309847', 2, '22/6/1989', 1, 2, 1, 23, '27 Debra Street', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Rebecca', 'Dinkin', 3, '7287881349', 2, '12/2/1963', 3, 2, 2, 39, '0 Ludington Hill', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Maren', 'Pedler', 1, '1849173915', 1, '10/12/1993', 3, 1, 1, 4, '9330 Schlimgen Trail', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Darrel', 'Egell', 3, '9137415700', 1, '23/1/1979', 2, 1, 1, 11, '7 Westerfield Center', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Robin', 'Marwick', 3, '4107274543', 2, '3/12/1958', 2, 2, 2, 39, '95046 Susan Pass', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Alyse', 'Pancoast', 1, '5360422122', 5, '15/10/1999', 3, 1, 1, 19, '312 Walton Parkway', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Cynde', 'Hassur', 2, '2915107661', 3, '21/7/1999', 3, 1, 2, 17, '224 Scoville Junction', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Debi', 'Maven', 1, '5914805473', 3, '9/11/1943', 1, 2, 2, 28, '90 Michigan Circle', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Sayre', 'Passe', 1, '8695924238', 2, '6/12/2012', 1, 2, 1, 3, '690 Petterle Point', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Barton', 'Jermey', 2, '4575659754', 1, '21/6/1950', 3, 2, 2, 23, '532 Acker Road', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Jewelle', 'Osbourn', 1, '8073549816', 1, '10/3/1978', 3, 1, 2, 27, '22784 Gerald Trail', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Rivkah', 'Albinson', 2, '8635110382', 3, '8/12/1992', 2, 1, 1, 31, '5 Stang Junction', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Simeon', 'Pudan', 1, '5790798861', 4, '5/3/1961', 1, 1, 2, 15, '8939 Harbort Court', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Kimberly', 'Crowcher', 2, '1816166715', 1, '27/5/1980', 2, 1, 2, 31, '11 Red Cloud Trail', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Cristie', 'McInally', 1, '9141988752', 3, '8/8/1951', 2, 2, 1, 27, '9099 7th Road', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Cammy', 'St Pierre', 3, '6837387944', 1, '26/10/1967', 2, 1, 2, 36, '551 Holmberg Road', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Berget', 'MacCracken', 2, '1002689198', 1, '14/5/2009', 2, 2, 2, 15, '66464 Browning Place', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Siana', 'Mularkey', 3, '1344222412', 3, '8/1/2021', 1, 2, 1, 10, '811 Acker Avenue', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Judith', 'Carette', 1, '2806146100', 2, '11/4/1956', 1, 2, 2, 26, '00495 3rd Avenue', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Nicolle', 'Zack', 3, '1074681665', 5, '25/12/1996', 3, 2, 2, 28, '3287 Lerdahl Road', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Vidovik', 'Budden', 3, '9627532991', 5, '19/10/1961', 2, 2, 1, 25, '824 Columbus Avenue', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Madelina', 'Gamlyn', 1, '7071967946', 5, '6/5/1990', 1, 1, 1, 18, '5894 Duke Road', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Teddi', 'Dreschler', 3, '8659032888', 2, '21/2/1998', 3, 2, 1, 34, '47583 Duke Drive', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Aldridge', 'Corteney', 3, '7961082034', 1, '26/5/2007', 3, 1, 1, 27, '88 Old Shore Street', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Rayner', 'Fasey', 3, '0739355627', 3, '3/2/2006', 3, 2, 1, 26, '32 Memorial Court', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Helen', 'Selwyn', 2, '0510609716', 4, '1/8/1945', 2, 2, 2, 34, '29978 Oak Terrace', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Galvin', 'Thelwll', 1, '3846906239', 4, '3/6/1964', 3, 2, 1, 27, '8 Fuller Avenue', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Guss', 'Rawlinson', 3, '1003346316', 5, '6/11/1997', 3, 2, 2, 15, '286 Pearson Lane', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Karola', 'Iwanowicz', 2, '4092283784', 1, '29/1/1974', 3, 2, 2, 19, '80 Manitowish Junction', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Addia', 'Canacott', 3, '6175433238', 4, '17/7/1952', 2, 2, 2, 14, '16 Union Avenue', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Shirleen', 'Stockdale', 3, '5752063019', 1, '30/1/1978', 2, 1, 1, 14, '71749 Portage Park', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Bryan', 'Quennell', 2, '5072714101', 3, '18/4/1990', 3, 2, 2, 33, '349 Manley Lane', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Holly', 'Kinnon', 1, '5643939819', 5, '8/3/2017', 3, 2, 1, 35, '9898 Judy Terrace', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Ashton', 'Mansbridge', 1, '0391859056', 1, '24/2/2003', 3, 2, 1, 22, '49812 Norway Maple Junction', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Eimile', 'Sharplin', 2, '2947606124', 3, '30/4/1944', 1, 2, 2, 35, '86 Canary Drive', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Datha', 'Carnall', 2, '6666494083', 1, '11/4/1964', 1, 2, 2, 26, '3674 Surrey Road', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Stephanus', 'Goskar', 2, '6513648122', 2, '30/5/1989', 3, 1, 2, 36, '0 Jay Court', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Fletcher', 'Szymoni', 2, '7590517003', 1, '31/10/1983', 3, 2, 2, 32, '0600 Butternut Drive', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Aymer', 'Filipponi', 3, '7468335575', 4, '7/6/2021', 2, 1, 2, 16, '1 Holmberg Street', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Sid', 'Beat', 1, '2050264968', 2, '12/8/1960', 1, 1, 2, 28, '4 Elka Terrace', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Waneta', 'Sausman', 2, '1558442731', 2, '20/8/1965', 3, 1, 1, 10, '58981 Forster Pass', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Karel', 'Cunnow', 3, '5328996259', 1, '17/8/2011', 3, 2, 2, 32, '46722 Magdeline Street', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Fayre', 'Beekmann', 1, '9135051760', 5, '30/6/1964', 2, 1, 1, 33, '8925 Straubel Park', true);
+insert into Alumnos (nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta) values ('Belinda', 'Louch', 2, '5974150600', 2, '6/11/1995', 1, 2, 2, 28, '7681 Westridge Avenue', true);
+
+/* Profesores */
+
+insert into profesores (nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, Alta, titulo_univ) values ('Monte', 'Grzesiak', 3, '0505093790', '27/5/1992', 3, 28, '7 Sycamore Trail', 'Mechanical Systems Engineer');
+insert into profesores (nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, Alta, titulo_univ) values ('Aleda', 'Ewert', 3, '4849865496', '6/7/1990', 3, 13, '12339 Canary Avenue', 'Assistant Manager');
+insert into profesores (nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, Alta, titulo_univ) values ('Ottilie', 'Agent', 1, '7107435426', '17/3/2019', 2, 26, '66182 Ohio Street', 'Clinical Specialist');
+insert into profesores (nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, Alta, titulo_univ) values ('Robbie', 'Jeremiah', 2, '1372221476', '19/9/1963', 1, 22, '87 Holmberg Pass', 'VP Sales');
+insert into profesores (nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, Alta, titulo_univ) values ('Daven', 'Chadwyck', 1, '7140841136', '2/8/1945', 2, 24, '045 Sunfield Center', 'Software Test Engineer IV');
+insert into profesores (nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, Alta, titulo_univ) values ('Drugi', 'Toffolini', 2, '3874856372', '2/3/1980', 1, 3, '9712 Meadow Valley Way', 'Sales Representative');
+insert into profesores (nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, Alta, titulo_univ) values ('Halette', 'Snaden', 2, '6086437688', '22/3/2005', 3, 38, '8 Center Road', 'VP Marketing');
+insert into profesores (nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, Alta, titulo_univ) values ('Darn', 'Pittendreigh', 3, '4100874480', '30/8/1960', 2, 8, '17215 Melrose Center', 'Media Manager III');
+insert into profesores (nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, Alta, titulo_univ) values ('Isidoro', 'Edwin', 3, '4017436404', '20/11/1974', 3, 38, '655 Scofield Parkway', 'Office Assistant I');
+insert into profesores (nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, Alta, titulo_univ) values ('Crissy', 'Melmore', 3, '9479153971', '12/9/1962', 3, 4, '36 Schiller Way', 'Tax Accountant');
+insert into profesores (nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, Alta, titulo_univ) values ('Candice', 'McCully', 1, '7252296024', '13/6/1950', 3, 37, '9 Dennis Court', 'Staff Accountant IV');
+insert into profesores (nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, Alta, titulo_univ) values ('Yvette', 'Leete', 3, '6160700200', '20/2/1971', 3, 13, '0 Bayside Point', 'Registered Nurse');
+insert into profesores (nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, Alta, titulo_univ) values ('Wanda', 'Raddish', 2, '5031013982', '12/8/1969', 3, 24, '992 Bellgrove Circle', 'Administrative Officer');
+insert into profesores (nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, Alta, titulo_univ) values ('Kinsley', 'Pring', 1, '9060528964', '18/1/1967', 3, 21, '422 Pleasure Alley', 'Actuary');
+insert into profesores (nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, Alta, titulo_univ) values ('Maud', 'Batie', 2, '0859599345', '12/4/1964', 2, 11, '05012 Rockefeller Point', 'Staff Scientist');
+
+/* Materias-Profesores */
+
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 15, 13);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 5, 10);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 11, 18);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 3, 8);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 3, 1);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 10, 3);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 12, 18);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 9, 14);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 1, 23);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 5, 11);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 9, 3);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 1, 7);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 10, 10);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 12, 5);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 11, 8);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 14, 25);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 1, 13);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 7, 26);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 6, 20);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 5, 11);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 9, 14);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 1, 26);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 7, 22);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 13, 13);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 6, 7);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 12, 6);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 10, 20);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 9, 10);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 15, 20);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 10, 2);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 7, 8);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 13, 18);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 13, 9);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 2, 5);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 8, 4);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 11, 24);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 11, 6);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 12, 21);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 9, 12);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 13, 22);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 11, 8);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 5, 18);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 13, 13);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 9, 17);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 2, 14);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 10, 1);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 6, 1);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 13, 5);
+insert into materias_profesores (año, id_profesor, id_materia) values (2, 4, 8);
+insert into materias_profesores (año, id_profesor, id_materia) values (1, 5, 6);
+
+/* Alumnos-Materias */
+
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2017, 1, 49, 24, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2021, 1, 34, 17, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2022, 1, 5, 25, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 1, 47, 7, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2021, 1, 15, 22, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2019, 1, 21, 17, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 3, 13, 11, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2015, 1, 39, 6, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 1, 14, 14, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 1, 35, 26, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2016, 1, 43, 24, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2021, 3, 35, 5, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2015, 1, 49, 9, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 3, 47, 15, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2021, 1, 41, 7, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2019, 2, 16, 3, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2020, 1, 24, 13, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2020, 2, 19, 13, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2022, 1, 36, 9, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2017, 1, 20, 3, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2015, 3, 37, 21, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2022, 1, 48, 20, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 1, 36, 21, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2017, 2, 51, 19, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2019, 2, 5, 9, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2020, 3, 9, 2, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2019, 3, 7, 19, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 3, 32, 6, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2022, 1, 16, 21, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2021, 3, 23, 21, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2017, 2, 31, 15, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2022, 2, 41, 5, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2017, 2, 12, 14, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2016, 1, 38, 24, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2022, 1, 31, 24, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2016, 1, 9, 16, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2016, 2, 38, 20, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2015, 2, 35, 8, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2022, 3, 14, 11, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2015, 2, 30, 11, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2016, 3, 38, 23, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2015, 1, 3, 10, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2015, 3, 40, 11, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2021, 3, 42, 14, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2019, 1, 41, 1, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 3, 24, 3, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2017, 3, 32, 15, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2016, 2, 5, 18, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2020, 2, 45, 11, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2015, 3, 46, 1, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2016, 3, 8, 19, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2020, 3, 26, 14, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2021, 3, 25, 15, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2016, 2, 48, 1, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 2, 45, 26, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2016, 2, 38, 1, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2017, 3, 33, 19, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2017, 3, 46, 26, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2020, 3, 40, 24, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2022, 3, 33, 25, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2015, 1, 28, 3, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2015, 3, 18, 20, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2020, 1, 11, 24, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2020, 3, 51, 26, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 3, 24, 16, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2019, 1, 35, 24, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2022, 2, 20, 24, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2021, 3, 49, 19, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2017, 3, 25, 24, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2020, 3, 38, 12, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2019, 2, 18, 8, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2020, 2, 40, 4, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2015, 2, 1, 4, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2019, 1, 33, 7, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 1, 52, 13, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2019, 2, 47, 16, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2019, 3, 2, 10, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2021, 1, 20, 19, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 3, 18, 15, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2019, 3, 31, 3, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2016, 3, 44, 15, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 3, 22, 21, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2021, 1, 52, 15, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2019, 3, 18, 19, 4);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 3, 33, 4, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2017, 1, 27, 16, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2019, 2, 32, 6, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2017, 2, 20, 18, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2022, 1, 23, 4, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2015, 2, 39, 5, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2022, 2, 31, 3, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2016, 3, 20, 25, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 1, 7, 16, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2017, 1, 13, 6, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2020, 2, 50, 10, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2020, 3, 25, 12, 3);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2020, 2, 47, 14, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2021, 2, 34, 4, 2);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2016, 2, 13, 4, 1);
+insert into alumnos_materias (año, id_estado, id_alumno, id_materia, id_curso) values (2018, 2, 33, 24, 4);
+
+/* Examenes */
+
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 18, '23/12/2018');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 25, '29/3/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 11, '29/11/2015');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 10, '10/10/2021');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 2, '27/6/2022');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 26, '20/6/2022');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 15, '12/10/2015');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 25, '26/8/2017');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 10, '28/7/2015');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 9, '30/3/2015');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 22, '21/8/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 5, '22/3/2018');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 20, '18/2/2019');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 1, '15/11/2018');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 6, '8/5/2022');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 13, '22/8/2016');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 9, '10/1/2022');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 20, '24/5/2015');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 18, '29/11/2018');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 11, '16/5/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 18, '12/5/2018');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 23, '1/1/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 24, '30/3/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 19, '16/11/2019');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 17, '25/11/2017');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 16, '22/12/2017');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 18, '5/11/2018');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 17, '9/3/2018');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 22, '21/4/2016');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 20, '27/11/2019');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 24, '15/8/2016');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 17, '3/2/2021');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 25, '9/8/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 13, '26/11/2019');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 5, '29/8/2015');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 21, '10/1/2015');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 7, '27/12/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 16, '1/2/2022');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 4, '9/11/2015');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 5, '25/12/2017');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 20, '20/7/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 4, '15/10/2016');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 17, '4/1/2018');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 14, '3/1/2021');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 25, '19/7/2019');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 5, '27/5/2021');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 7, '7/4/2018');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 8, '3/9/2016');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 11, '28/3/2021');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 7, '21/7/2016');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 11, '9/4/2021');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 25, '6/4/2017');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 6, '29/3/2017');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 8, '28/8/2018');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 8, '26/8/2015');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 21, '15/3/2015');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 11, '13/6/2016');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 12, '5/2/2021');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 10, '11/10/2021');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 10, '17/5/2018');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 2, '10/7/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 15, '18/8/2019');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 7, '6/4/2018');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 9, '22/11/2017');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 8, '23/3/2018');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 24, '3/1/2019');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 26, '17/12/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 18, '31/8/2017');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 4, '24/10/2021');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 3, '21/2/2017');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 12, '14/9/2017');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 13, '12/10/2016');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 13, '11/5/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 6, '1/7/2018');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 10, '10/5/2017');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 7, '18/12/2018');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 8, '4/1/2015');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 6, '27/1/2019');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 13, '8/11/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 15, '29/10/2016');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 20, '12/5/2022');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 2, '28/6/2021');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 8, '15/6/2015');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 14, '9/1/2021');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 8, '8/6/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 25, '29/4/2019');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 14, '4/12/2017');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 11, '25/2/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 5, '5/8/2016');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 14, '8/4/2016');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 5, '12/1/2022');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 6, '10/11/2019');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 9, '5/12/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 1, '6/4/2020');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 25, '22/5/2022');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 22, '16/2/2022');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 8, '13/3/2015');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (3, 22, '25/3/2022');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (1, 26, '20/8/2022');
+insert into examenes (id_tipo_examen, id_materia, fecha) values (2, 16, '9/4/2016');
+
+/* Detalles Examenes */
+
+insert into detalle_examenes (id_examen, id_alumno, nota) values (88, 14, 9.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (56, 30, 4.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (88, 9, 2.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (68, 22, 8.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (56, 46, 7.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (6, 52, 9.6);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (95, 23, 6.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (42, 42, 1.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (55, 30, 2.6);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (61, 50, 2.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (71, 16, 5.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (38, 7, 1.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (28, 8, 5.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (88, 45, 8.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (54, 31, 2.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (78, 37, 6.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (5, 7, 2.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (85, 11, 2.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (42, 37, 1.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (62, 37, 9.6);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (6, 37, 1.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (70, 38, 7.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (89, 16, 5.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (16, 3, 7.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (37, 29, 6.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (49, 21, 8.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (44, 51, 2.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (96, 14, 1.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (33, 51, 8.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (57, 41, 7.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (96, 33, 9.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (64, 37, 5.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (56, 6, 4.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (86, 18, 6.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (22, 12, 9.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (27, 1, 6.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (99, 34, 6.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (83, 14, 3.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (68, 6, 9.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (20, 18, 1.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (57, 38, 9.6);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (37, 18, 6.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (95, 28, 5.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (83, 41, 7.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (42, 33, 8.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (15, 27, 2.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (45, 33, 8.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (1, 9, 5.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (4, 13, 5.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (17, 8, 7.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (95, 9, 9.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (97, 28, 3.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (93, 33, 8.6);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (54, 12, 5.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (3, 21, 2.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (17, 4, 1.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (89, 34, 2.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (15, 9, 3.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (33, 43, 2.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (54, 47, 7.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (26, 22, 4.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (73, 27, 8.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (96, 13, 9.6);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (42, 45, 8.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (17, 7, 6.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (43, 25, 5.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (50, 48, 3.6);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (45, 6, 5.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (45, 27, 10.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (61, 52, 2.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (59, 2, 10.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (45, 17, 6.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (6, 52, 9.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (48, 1, 1.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (39, 9, 5.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (63, 41, 3.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (26, 18, 3.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (2, 4, 9.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (38, 42, 3.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (38, 5, 1.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (91, 51, 6.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (81, 3, 9.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (34, 19, 5.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (99, 33, 3.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (43, 46, 4.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (23, 30, 2.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (24, 29, 5.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (36, 42, 5.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (32, 31, 8.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (19, 17, 3.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (46, 21, 1.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (49, 37, 8.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (97, 22, 9.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (82, 2, 1.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (10, 42, 2.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (48, 16, 1.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (81, 50, 2.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (93, 14, 6.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (76, 39, 4.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (66, 42, 6.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (8, 3, 7.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (84, 8, 8.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (41, 46, 3.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (34, 38, 3.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (15, 1, 7.6);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (20, 18, 9.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (11, 27, 1.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (25, 39, 7.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (86, 18, 5.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (35, 26, 6.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (38, 34, 5.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (68, 48, 7.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (49, 10, 7.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (8, 51, 7.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (45, 24, 6.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (95, 33, 4.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (54, 32, 3.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (29, 29, 3.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (96, 18, 4.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (47, 26, 2.6);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (19, 32, 8.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (23, 8, 2.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (95, 47, 1.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (72, 34, 5.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (37, 46, 1.6);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (24, 36, 4.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (31, 33, 2.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (20, 12, 3.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (91, 9, 4.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (10, 11, 3.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (97, 43, 9.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (77, 41, 9.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (59, 11, 7.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (75, 44, 4.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (59, 39, 6.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (88, 21, 1.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (20, 50, 8.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (28, 15, 7.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (95, 22, 6.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (76, 18, 7.6);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (95, 31, 9.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (63, 39, 3.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (16, 46, 8.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (95, 49, 8.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (37, 27, 1.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (96, 16, 4.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (70, 31, 4.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (1, 24, 9.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (77, 25, 6.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (56, 39, 4.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (68, 40, 3.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (95, 20, 8.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (58, 49, 5.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (20, 39, 6.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (12, 23, 5.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (79, 1, 7.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (71, 46, 5.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (45, 40, 8.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (33, 2, 9.6);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (77, 29, 7.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (96, 26, 6.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (68, 18, 3.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (55, 50, 7.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (40, 1, 8.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (13, 19, 6.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (46, 31, 2.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (57, 45, 2.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (43, 11, 4.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (73, 34, 6.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (35, 25, 8.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (24, 31, 5.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (37, 32, 9.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (7, 29, 7.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (44, 21, 4.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (86, 36, 8.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (66, 39, 4.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (5, 27, 7.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (7, 23, 1.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (86, 3, 9.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (29, 3, 6.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (66, 39, 4.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (37, 30, 7.9);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (22, 10, 5.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (21, 24, 6.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (40, 11, 1.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (75, 16, 2.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (45, 22, 4.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (85, 19, 8.4);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (45, 25, 4.8);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (71, 11, 4.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (6, 19, 3.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (51, 34, 2.7);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (25, 36, 9.0);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (70, 8, 6.5);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (85, 31, 9.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (95, 15, 6.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (20, 26, 7.1);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (11, 17, 5.2);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (71, 52, 5.3);
+insert into detalle_examenes (id_examen, id_alumno, nota) values (23, 2, 5.8);
+
+

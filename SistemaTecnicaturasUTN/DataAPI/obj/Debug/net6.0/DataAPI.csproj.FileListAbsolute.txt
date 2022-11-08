@@ -1,0 +1,12 @@
+E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI\bin\Debug\net6.0\DataAPI.deps.json
+E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI\bin\Debug\net6.0\DataAPI.dll
+E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI\bin\Debug\net6.0\DataAPI.pdb
+E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\DataAPI.csproj.AssemblyReference.cache
+E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\DataAPI.GeneratedMSBuildEditorConfig.editorconfig
+E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\DataAPI.AssemblyInfoInputs.cache
+E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\DataAPI.AssemblyInfo.cs
+E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\DataAPI.csproj.CoreCompileInputs.cache
+E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\DataAPI.dll
+E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\refint\DataAPI.dll
+E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\DataAPI.pdb
+E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\ref\DataAPI.dll
