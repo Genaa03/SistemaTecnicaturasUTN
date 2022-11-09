@@ -10,7 +10,7 @@ namespace DataAPI.Dominio
     {
         public Alumno2()
         {
-            id = 0;
+            id_alumno = 0;
             nombreCompleto = "";
             nombre = "";
             apellido = "";
@@ -27,7 +27,7 @@ namespace DataAPI.Dominio
 
         public Alumno2(int id, string nombreCompleto, string nombre, string apellido, int tipo_dni, string nro_dni, int tecnicatura, DateTime fecha_nac, int estado_civil, int situacion_laboral, int situacion_habitacional, int barrio, string direccion)
         {
-            this.id = id;
+            this.id_alumno = id;
             this.nombreCompleto = nombreCompleto;
             this.nombre = nombre;
             this.apellido = apellido;
@@ -43,7 +43,7 @@ namespace DataAPI.Dominio
         }
 
 
-        public int id { get; set; }
+        public int id_alumno { get; set; }
         public string nombreCompleto { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }
@@ -59,7 +59,7 @@ namespace DataAPI.Dominio
 
         public override string ToString()
         {
-            return id + " - " + nombreCompleto;
+            return id_alumno + " - " + nombreCompleto;
         }
     }
 }

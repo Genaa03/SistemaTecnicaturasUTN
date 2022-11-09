@@ -155,17 +155,17 @@ namespace FrontUTN.Presentaciones
                 MessageBox.Show("ERROR. Algun campo se encuentra vacio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (Int32.TryParse(txtDni.Text, out int a) == false)
-            {
-                MessageBox.Show("ERROR. Ingrese solo numeros en el N° de DNI.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
             if (txtDni.Text.Length > 10)
             {
                 MessageBox.Show("ERROR. El N° de DNI solo puede tener 10 digitos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if(DateTime.Today.Year - dtpFechaNacimiento.Value.Year < 17)
+            if (Int32.TryParse(txtDni.Text, out int a) == false)
+            {
+                MessageBox.Show("ERROR. Ingrese solo numeros en el N° de DNI.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (DateTime.Today.Year - dtpFechaNacimiento.Value.Year < 17)
             {
                 MessageBox.Show("ERROR. El alumno debe ser mayor a 17 años.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;

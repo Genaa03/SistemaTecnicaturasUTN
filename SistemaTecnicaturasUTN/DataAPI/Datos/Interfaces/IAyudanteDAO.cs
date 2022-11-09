@@ -34,9 +34,17 @@ namespace DataAPI.Datos.Interfaces
 
         public bool CrearAlumno(Alumno alumno);
 
+        public bool ModificarAlumno(Alumno2 alumno);
+
+        public bool EliminarAlumno(int id, string nombre, string apellido);
+
         // FORM EXAMEN
 
+        public List<Materia> GetMaterias();
+        public List<TipoExamen> GetTipoExamenes();
         public bool CrearExamen(Examen examen);
+
+        public int GetProximoExamen();
 
     }
 }

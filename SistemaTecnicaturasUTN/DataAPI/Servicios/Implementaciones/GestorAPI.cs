@@ -28,7 +28,7 @@ namespace DataAPI.Servicios.Implementaciones
 
         public List<Alumno> GetAlumnos()
         {
-           return oDAO.GetAlumnos();
+            return oDAO.GetAlumnos();
         }
 
         public List<AlumnoAltaBaja> GetAlumnosAlta()
@@ -75,12 +75,9 @@ namespace DataAPI.Servicios.Implementaciones
         {
             return oDAO.GetTiposDNI();
         }
-
-        // ALTA EXAMEN
-
-        public bool CrearExamen(Examen examen)
+        public List<Alumno2> GetAlumnosConAlta()
         {
-            return oDAO.CrearExamen(examen);
+            return oDAO.GetAlumnosConAlta();
         }
 
         public bool CrearAlumno(Alumno alumno)
@@ -88,9 +85,35 @@ namespace DataAPI.Servicios.Implementaciones
             return oDAO.CrearAlumno(alumno);
         }
 
-        public List<Alumno2> GetAlumnosConAlta()
+        public bool ModificarAlumno(Alumno2 alumno)
         {
-            return oDAO.GetAlumnosConAlta();
+            return oDAO.ModificarAlumno(alumno);
+        }
+
+        public bool EliminarAlumno(int id, string nombre, string apellido)
+        {
+            return oDAO.EliminarAlumno(id,nombre,apellido);
+        }
+
+        // ALTA EXAMEN
+
+
+        public List<Materia> GetMaterias()
+        {
+            return oDAO.GetMaterias();
+        }
+
+        public List<TipoExamen> GetTipoExamenes()
+        {
+            return oDAO.GetTipoExamenes();
+        }
+        public bool CrearExamen(Examen examen)
+        {
+            return oDAO.CrearExamen(examen);
+        }
+        public int GetProximoExamen()
+        {
+            return oDAO.GetProximoExamen();
         }
     }
 }

@@ -283,14 +283,79 @@ namespace DataAPI.Datos.Implementaciones
             return filas;
         }
 
+
+        public bool CrearAlumno(Alumno alumno)
+        {
+            return HelperDAO.ObtenerInstancia().InsertarAlumno(alumno);
+        }
+
+        public bool ModificarAlumno(Alumno2 alumno)
+        {
+            return HelperDAO.ObtenerInstancia().ModificarAlumno(alumno);
+        }
+
+        public bool EliminarAlumno(int id, string nombre, string apellido)
+        {
+            return HelperDAO.ObtenerInstancia().EliminarAlumno(id,nombre,apellido);
+        }
+
+        // **************************************************************************************************
+        // FORM EXAMENES
+        // **************************************************************************************************
+
         public bool CrearExamen(Examen examen)
         {
             return HelperDAO.ObtenerInstancia().ejecutarMD("CREAR_EXAMEN", "CREAR_DETALLE_EXAMEN", examen);
         }
 
-        public bool CrearAlumno(Alumno alumno)
+        public List<Materia> GetMaterias()
         {
-            return HelperDAO.ObtenerInstancia().InsertarAlumno(alumno);
+            List<Materia> lst = new List<Materia>();
+
+            string sp = "OBTENER_MATERIAS";
+            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+
+            foreach (DataRow a in tabla.Rows)
+            {
+                //Mapear un registro a un objeto del modelo de dominio
+                int id = Convert.ToInt32(a["id_materia"].ToString());
+                string nombre = a["nombre_materia"].ToString();
+                int tecnicatura = Convert.ToInt32(a["id_tecnicatura"].ToString());
+
+                Materia aux = new Materia(id, nombre, tecnicatura);
+
+                lst.Add(aux);
+
+            }
+
+            return lst;
+        }
+
+        public List<TipoExamen> GetTipoExamenes()
+        {
+            List<TipoExamen> lst = new List<TipoExamen>();
+
+            string sp = "OBTENER_TIPOS_EXAMEN";
+            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+
+            foreach (DataRow a in tabla.Rows)
+            {
+                //Mapear un registro a un objeto del modelo de dominio
+                int id = Convert.ToInt32(a["id_tipo_examen"].ToString());
+                string nombre = a["descripcion"].ToString();
+
+                TipoExamen aux = new TipoExamen(id, nombre);
+
+                lst.Add(aux);
+
+            }
+
+            return lst;
+        }
+
+        public int GetProximoExamen()
+        {
+            return HelperDAO.ObtenerInstancia().ConsultaNumero("PROXIMO_EXAMEN", "@next");
         }
     }
 }

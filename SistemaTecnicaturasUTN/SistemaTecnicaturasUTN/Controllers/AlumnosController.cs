@@ -9,11 +9,11 @@ namespace SistemaTecnicaturasUTN.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExamenController : ControllerBase
+    public class AlumnosController : ControllerBase
     {
         private IGestorAPI gestor;
 
-        public ExamenController()
+        public AlumnosController()
         {
             gestor = new GestorAPI();
         }
@@ -192,23 +192,6 @@ namespace SistemaTecnicaturasUTN.Controllers
             }
         }
 
-        [HttpPost("/crearExamen")]
-        public IActionResult PostExamen(Examen examen)
-        {
-            try
-            {
-                if (examen == null)
-                {
-                    return BadRequest("Datos del examen incorrectos!");
-                }
-
-                return Ok(gestor.CrearExamen(examen));
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Error interno! Intente luego");
-            }
-        }
 
         [HttpPost("/inscripcionAlumno")]
         public IActionResult PostAlumno(Alumno alumno)
@@ -221,6 +204,44 @@ namespace SistemaTecnicaturasUTN.Controllers
                 }
 
                 return Ok(gestor.CrearAlumno(alumno));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Error interno! Intente luego");
+            }
+        }
+
+        [HttpPut("/modificacionAlumno")]
+        public IActionResult PutAlumno(Alumno2 alumno)
+        {
+            try
+            {
+                if (alumno == null)
+                {
+                    return BadRequest("Datos del alumno incorrectos!");
+                }
+
+                return Ok(gestor.ModificarAlumno(alumno));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Error interno! Intente luego");
+            }
+        }
+
+        [HttpDelete("/eliminacionAlumno")]
+        public IActionResult DeleteAlumno(int id, string nombre, string apellido)
+        {
+
+            try
+            {
+                if (String.IsNullOrEmpty(nombre) || String.IsNullOrEmpty(apellido))
+                {
+                    return BadRequest("Datos del alumno incorrectos!");
+                }
+
+                return Ok(gestor.EliminarAlumno(id,nombre,apellido));
+
             }
             catch (Exception)
             {

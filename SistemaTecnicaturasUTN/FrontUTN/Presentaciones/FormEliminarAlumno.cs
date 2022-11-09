@@ -12,30 +12,31 @@ using DataAPI.Servicios.Implementaciones;
 using FrontUTN.Http;
 using FrontUTN.Presentaciones;
 using Newtonsoft.Json;
+
 namespace FrontUTN.Presentaciones
 {
-    public partial class FormModificacionAlumno : Form
+    public partial class FormEliminarAlumno : Form
     {
-        private static FormModificacionAlumno instancia;
-        private Alumno2 alu2;
+        private static FormEliminarAlumno instancia;
+        private Alumno2 alu3;
         private GestorAPI gestor;
-        public FormModificacionAlumno()
+        public FormEliminarAlumno()
         {
             InitializeComponent();
-            alu2 = new Alumno2();
+            alu3 = new Alumno2();
             gestor = new GestorAPI();
         }
 
-        public static FormModificacionAlumno ObtenerInstancia()
+        public static FormEliminarAlumno ObtenerInstancia()
         {
             if (instancia == null)
             {
-                instancia = new FormModificacionAlumno();
+                instancia = new FormEliminarAlumno();
             }
             return instancia;
         }
 
-        private async void FormModificacionAlumno_Load(object sender, EventArgs e)
+        private async void FormEliminarAlumno_Load(object sender, EventArgs e)
         {
             await CargarAlumnosConAltaAsync();
             await CargarBarriosAsync();
@@ -149,121 +150,22 @@ namespace FrontUTN.Presentaciones
 
         private void habilitar(bool h)
         {
-            txtApellido.Enabled = h;
-            txtNombre.Enabled = h;
-            txtDni.Enabled = h;
-            txtDireccion.Enabled = h;
-            dtpFechaNacimiento.Enabled = h;
-            cboBarrio.Enabled = h;
-            cboEstadoCivil.Enabled = h;
-            cboSituacionHabitacional.Enabled = h;
-            cboSituacionLaboral.Enabled = h;
-            cboTecnicatura.Enabled = h;
-            cboTipoDni.Enabled = h;
             cboAlumnos.Enabled = !h;
-            btnAceptar.Enabled = h;
-            btnLimpiar.Enabled = h;
-        }
-
-        private bool validar()
-        {
-            if (String.IsNullOrEmpty(txtApellido.Text) || String.IsNullOrEmpty(txtNombre.Text) || String.IsNullOrEmpty(txtDireccion.Text)
-                || String.IsNullOrEmpty(txtDni.Text) || cboBarrio.SelectedIndex == -1 || cboEstadoCivil.SelectedIndex == -1
-                || cboSituacionHabitacional.SelectedIndex == -1 || cboSituacionLaboral.SelectedIndex == -1 || cboTecnicatura.SelectedIndex == -1
-                || cboTipoDni.SelectedIndex == -1)
-            {
-                MessageBox.Show("ERROR. Algun campo se encuentra vacio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (txtDni.Text.Length > 10)
-            {
-                MessageBox.Show("ERROR. El N° de DNI solo puede tener 10 digitos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (Int32.TryParse(txtDni.Text, out int a) == false)
-            {
-                MessageBox.Show("ERROR. Ingrese solo numeros en el N° de DNI.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (DateTime.Today.Year - dtpFechaNacimiento.Value.Year < 17)
-            {
-                MessageBox.Show("ERROR. El alumno debe ser mayor a 17 años.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            return true;
-        }
-
-        private async Task<bool> ModificarAlumno()
-        {
-            //Datos del Alumno
-            if (validar())
-            {
-                alu2.nombre = txtNombre.Text;
-                alu2.apellido = txtApellido.Text;
-                alu2.tipo_dni = (int)cboTipoDni.SelectedValue;
-                alu2.nro_dni = txtDni.Text;
-                alu2.tecnicatura = (int)cboTecnicatura.SelectedValue;
-                alu2.fecha_nac = dtpFechaNacimiento.Value;
-                alu2.estado_civil = (int)cboEstadoCivil.SelectedValue;
-                alu2.situacion_habitacional = (int)cboSituacionHabitacional.SelectedValue;
-                alu2.situacion_laboral = (int)cboSituacionLaboral.SelectedValue;
-                alu2.barrio = (int)cboEstadoCivil.SelectedValue;
-                alu2.direccion = txtDireccion.Text;
-
-                string bodyContent = JsonConvert.SerializeObject(alu2);
-
-                string url = "http://localhost:5041/modificacionAlumno";
-                var result = await ClientSingleton.GetInstance().PutAsync(url, bodyContent);
-
-                if (result.Equals("true"))
-                {
-                    MessageBox.Show("Alumno modificado.", "Informe", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    limpiar();
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show("ERROR. No se pudo modificar el alumno", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private async void btnAceptar_Click(object sender, EventArgs e)
-        {
-            await ModificarAlumno();
-            cboAlumnos.SelectedIndex = -1;
-            await CargarAlumnosConAltaAsync();
-            limpiar();
-            habilitar(false);
-        }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            limpiar();
+            btnEliminar.Enabled = h;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Seguro desea cancelar la modificacion?", "ATENCION", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-            {
                 this.Close();
                 VentanaPrincipal.ObtenerInstancia().Show();
-            }
         }
 
         private void cboAlumnos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cboAlumnos.SelectedIndex != -1)
+            if (cboAlumnos.SelectedIndex != -1)
             {
 
-                Alumno2 alu3 = (Alumno2)cboAlumnos.SelectedItem;
-                alu2.id_alumno = alu3.id_alumno;
-                alu2.nombreCompleto = alu3.nombreCompleto;
+                alu3 = (Alumno2)cboAlumnos.SelectedItem;
                 txtApellido.Text = alu3.apellido;
                 txtNombre.Text = alu3.nombre;
                 txtDni.Text = alu3.nro_dni;
@@ -284,6 +186,38 @@ namespace FrontUTN.Presentaciones
             limpiar();
             cboAlumnos.SelectedIndex = -1;
             habilitar(false);
+        }
+
+        private async Task<bool> EliminarAlumno(int id, string nombre, string apellido)
+        {
+            string url = "http://localhost:5041/eliminacionAlumno?id=" + id+ "&nombre=" + nombre+ "&apellido=" + apellido;
+            var result = await ClientSingleton.GetInstance().DeleteAsync(url);
+            var lst = JsonConvert.DeserializeObject<bool>(result);
+
+            if (result.Equals("true"))
+            {
+                MessageBox.Show("Alumno eliminado.", "Informe", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                limpiar();
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("ERROR. No se pudo eliminar el alumno", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+
+        private async void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Seguro desea eliminar a "+ alu3.nombreCompleto +"?", "ATENCION", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                await EliminarAlumno(alu3.id_alumno, alu3.nombre, alu3.apellido);
+                cboAlumnos.SelectedIndex = -1;
+                await CargarAlumnosConAltaAsync();
+                limpiar();
+                habilitar(false);
+            }
         }
     }
 }

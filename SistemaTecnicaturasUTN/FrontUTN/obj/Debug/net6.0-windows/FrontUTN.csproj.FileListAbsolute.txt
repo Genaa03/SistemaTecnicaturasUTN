@@ -28,3 +28,5 @@ E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\FrontUT
 E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\FrontUTN\obj\Debug\net6.0-windows\FrontUTN.Presentaciones.FormAltaBajaAlumno.resources
 E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\FrontUTN\obj\Debug\net6.0-windows\FrontUTN.Presentaciones.FormInscripcionAlumno.resources
 E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\FrontUTN\obj\Debug\net6.0-windows\FrontUTN.Presentaciones.FormModificacionAlumno.resources
+E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\FrontUTN\obj\Debug\net6.0-windows\FrontUTN.Presentaciones.FormEliminarAlumno.resources
+E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\FrontUTN\obj\Debug\net6.0-windows\FrontUTN.Presentaciones.FormAltaExamen.resources

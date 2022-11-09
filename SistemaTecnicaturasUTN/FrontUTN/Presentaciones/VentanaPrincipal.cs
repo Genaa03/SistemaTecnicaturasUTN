@@ -57,5 +57,17 @@ namespace FrontUTN.Presentaciones
             this.Hide();
             FormModificacionAlumno.ObtenerInstancia().ShowDialog();
         }
+
+        private void eliminarAlumnoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FormEliminarAlumno.ObtenerInstancia().ShowDialog();
+        }
+
+        private void altaExamenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FormAltaExamen.ObtenerInstancia().ShowDialog();
+        }
     }
 }

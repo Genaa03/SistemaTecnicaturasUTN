@@ -65,3 +65,107 @@ as
     update Alumnos
     set Alta = 0
     where apellido = @apellido and nombre = @nombre
+
+CREATE PROCEDURE CREAR_EXAMEN
+	@tipo_examen int,
+	@materia int,
+	@fecha datetime,
+	@id int output
+AS
+	INSERT INTO examenes (id_tipo_examen, id_materia, fecha)
+    VALUES (@tipo_examen, @materia, @fecha);
+
+    SET @id = SCOPE_IDENTITY();
+
+CREATE PROCEDURE CREAR_DETALLE_EXAMEN
+	@id_examen int,
+	@id_alumno int,
+	@nota int
+
+AS
+	INSERT INTO detalle_examenes(id_examen, id_alumno, nota)
+    VALUES (@id_examen, @id_alumno, @nota);
+
+CREATE PROC CREAR_ALUMNO
+
+@nombre varchar(30),
+@apellido varchar(30),
+@tipo_dni int,
+@nro_dni varchar(10),
+@tecnicatura int,
+@fec_nac datetime,
+@estado_civil int,
+@situacion_lab int,
+@situacion_hab int,
+@barrio int,
+@direccion varchar(100)
+
+as
+
+    INSERT INTO Alumnos(nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, Alta)
+    VALUES (@nombre,@apellido,@tipo_dni,@nro_dni,@tecnicatura,@fec_nac,@estado_civil,@situacion_lab,@situacion_hab,@barrio,@direccion,1)
+
+CREATE PROC MODIFICAR_ALUMNO
+
+@id int,
+@nombre varchar(30),
+@apellido varchar(30),
+@tipo_dni int,
+@nro_dni varchar(10),
+@tecnicatura int,
+@fec_nac datetime,
+@estado_civil int,
+@situacion_lab int,
+@situacion_hab int,
+@barrio int,
+@direccion varchar(100)
+
+as
+
+    UPDATE Alumnos
+    SET nombre = @nombre,apellido = @apellido,id_tipo_dni = @tipo_dni,nro_dni = @nro_dni ,id_tecnicatura = @tecnicatura,
+        fec_nac = @fec_nac,id_estado_civil = @estado_civil,id_situacion_laboral = @situacion_lab,
+        id_situacion_habitacional = @situacion_hab,id_barrio = @barrio,direccion = @direccion, Alta = 1
+    WHERE id_alumno = @id
+
+CREATE PROC ELIMINAR_ALUMNO
+
+@id int,
+@nombre varchar(30),
+@apellido varchar(30)
+
+
+as
+
+    DELETE FROM Alumnos
+    WHERE id_alumno = @id AND nombre = @nombre AND apellido = @apellido
+
+CREATE PROC ELIMINAR_ALUMNO
+
+@id int,
+@nombre varchar(30),
+@apellido varchar(30)
+
+
+as
+
+    DELETE FROM Alumnos
+    WHERE id_alumno = @id AND nombre = @nombre AND apellido = @apellido
+
+CREATE PROC OBTENER_MATERIAS
+AS
+    SELECT * FROM materias
+    ORDER BY 2
+
+CREATE PROC OBTENER_TIPOS_EXAMEN
+AS
+    SELECT * FROM tipos_examenes
+    WHERE id_tipo_examen != 4
+    ORDER BY 2
+
+CREATE PROCEDURE PROXIMO_EXAMEN
+@next int OUTPUT
+AS
+BEGIN
+	SET @next = (SELECT MAX(id_examen)+1  FROM examenes);
+END

@@ -142,7 +142,7 @@ namespace DataAPI.Datos
 
                     // CARGA PARAMETROS
                     comando.Parameters.AddWithValue("@id_examen", id);
-                    comando.Parameters.AddWithValue("@id_alumno", detalle.alumno.id);
+                    comando.Parameters.AddWithValue("@id_alumno", detalle.alumno.id_alumno);
                     comando.Parameters.AddWithValue("@nota", detalle.nota);
 
                     comando.ExecuteNonQuery();
@@ -192,6 +192,95 @@ namespace DataAPI.Datos
                 comando.Parameters.AddWithValue("@situacion_hab", a.situacion_habitacional);
                 comando.Parameters.AddWithValue("@barrio", a.barrio);
                 comando.Parameters.AddWithValue("@direccion", a.direccion);
+
+                comando.ExecuteNonQuery();
+                comando.Parameters.Clear();
+
+                t.Commit();
+                control = true;
+            }
+            catch (SqlException)
+            {
+                if (t != null)
+                {
+                    t.Rollback();
+                }
+                control = false;
+            }
+            finally
+            {
+                if (conexion != null && conexion.State == ConnectionState.Open)
+                    desconectar();
+            }
+            return control;
+        }
+
+        public bool ModificarAlumno(Alumno2 a)
+        {
+            bool control = true;
+            SqlTransaction t = null;
+
+            try
+            {
+                conectar();
+                t = conexion.BeginTransaction();
+                comando.Transaction = t;
+                comando.CommandText = "MODIFICAR_ALUMNO";
+
+                // PARAMETROS 
+                comando.Parameters.Clear();
+                comando.Parameters.AddWithValue("@id", a.id_alumno);
+                comando.Parameters.AddWithValue("@nombre", a.nombre);
+                comando.Parameters.AddWithValue("@apellido", a.apellido);
+                comando.Parameters.AddWithValue("@tipo_dni", a.tipo_dni);
+                comando.Parameters.AddWithValue("@nro_dni", a.nro_dni);
+                comando.Parameters.AddWithValue("@tecnicatura", a.tecnicatura);
+                comando.Parameters.AddWithValue("@fec_nac", a.fecha_nac);
+                comando.Parameters.AddWithValue("@estado_civil", a.estado_civil);
+                comando.Parameters.AddWithValue("@situacion_lab", a.situacion_laboral);
+                comando.Parameters.AddWithValue("@situacion_hab", a.situacion_habitacional);
+                comando.Parameters.AddWithValue("@barrio", a.barrio);
+                comando.Parameters.AddWithValue("@direccion", a.direccion);
+
+                comando.ExecuteNonQuery();
+                comando.Parameters.Clear();
+
+                t.Commit();
+                control = true;
+            }
+            catch (SqlException)
+            {
+                if (t != null)
+                {
+                    t.Rollback();
+                }
+                control = false;
+            }
+            finally
+            {
+                if (conexion != null && conexion.State == ConnectionState.Open)
+                    desconectar();
+            }
+            return control;
+        }
+
+        public bool EliminarAlumno(int id, string nombre, string apellido)
+        {
+            bool control = true;
+            SqlTransaction t = null;
+
+            try
+            {
+                conectar();
+                t = conexion.BeginTransaction();
+                comando.Transaction = t;
+                comando.CommandText = "ELIMINAR_ALUMNO";
+
+                // PARAMETROS 
+                comando.Parameters.Clear();
+                comando.Parameters.AddWithValue("@id", id);
+                comando.Parameters.AddWithValue("@nombre", nombre);
+                comando.Parameters.AddWithValue("@apellido", apellido);
 
                 comando.ExecuteNonQuery();
                 comando.Parameters.Clear();

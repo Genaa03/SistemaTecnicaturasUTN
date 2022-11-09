@@ -15,9 +15,9 @@ namespace DataAPI.Dominio
 
         public List<DetalleExamen> examenes { get; set; }
 
-        public Examen(List<DetalleExamen> examenes)
+        public Examen()
         {
-            this.examenes = examenes;
+            examenes = new List<DetalleExamen>();
         }
 
         public void AgregarExamen(DetalleExamen examen)
@@ -28,6 +28,16 @@ namespace DataAPI.Dominio
         public void QuitarExamen(int indice)
         {
             examenes.RemoveAt(indice);
+        }
+
+        public double CalcularPromedio()
+        {
+            double total = 0;
+            double promedio = 0;
+            foreach (DetalleExamen item in examenes)
+                total += item.nota;
+            promedio = total / examenes.Count;
+            return Math.Round(promedio,2);
         }
     }
 }
