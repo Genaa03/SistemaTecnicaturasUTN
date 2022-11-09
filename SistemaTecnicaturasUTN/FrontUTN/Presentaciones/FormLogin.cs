@@ -25,18 +25,18 @@ namespace FrontUTN.Presentaciones
 
         }
 
-        private void btnIngresar_Click(object sender, EventArgs e)
+        private async void btnIngresar_Click(object sender, EventArgs e)
         {
-            if (comprobacion())
+            if (await comprobacion())
             {
                 this.Hide();
                 VentanaPrincipal.ObtenerInstancia().Show();
             }
         }
 
-        private bool comprobacion()
+        private async Task<bool> comprobacion()
         {
-            DataTable tabla = gestor.Ingreso();
+            DataTable tabla = await gestor.Ingreso();
             
             foreach (DataRow dr in tabla.Rows)
             {

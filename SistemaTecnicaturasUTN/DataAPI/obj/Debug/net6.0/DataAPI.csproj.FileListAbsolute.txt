@@ -10,3 +10,15 @@ E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI
 E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\refint\DataAPI.dll
 E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\DataAPI.pdb
 E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\ref\DataAPI.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\DataAPI\bin\Debug\net6.0\DataAPI.deps.json
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\DataAPI\bin\Debug\net6.0\DataAPI.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\DataAPI\bin\Debug\net6.0\DataAPI.pdb
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\DataAPI.csproj.AssemblyReference.cache
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\DataAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\DataAPI.AssemblyInfoInputs.cache
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\DataAPI.AssemblyInfo.cs
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\DataAPI.csproj.CoreCompileInputs.cache
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\DataAPI.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\refint\DataAPI.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\DataAPI.pdb
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\DataAPI\obj\Debug\net6.0\ref\DataAPI.dll

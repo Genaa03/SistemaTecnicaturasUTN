@@ -34,3 +34,39 @@ E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\Sistema
 E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\ref\SistemaTecnicaturasUTN.dll
 E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\DataAPI.dll
 E:\Gena\Facultad\Programacion\Programacion II\TPI\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\DataAPI.pdb
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\appsettings.json
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\SistemaTecnicaturasUTN.exe
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\SistemaTecnicaturasUTN.deps.json
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\SistemaTecnicaturasUTN.runtimeconfig.json
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\SistemaTecnicaturasUTN.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\SistemaTecnicaturasUTN.pdb
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\System.Data.SqlClient.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\runtimes\win-arm64\native\sni.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\runtimes\win-x64\native\sni.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\runtimes\win-x86\native\sni.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\DataAPI.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\bin\Debug\net6.0\DataAPI.pdb
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\SistemaTecnicaturasUTN.csproj.AssemblyReference.cache
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\SistemaTecnicaturasUTN.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\SistemaTecnicaturasUTN.AssemblyInfoInputs.cache
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\SistemaTecnicaturasUTN.AssemblyInfo.cs
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\SistemaTecnicaturasUTN.csproj.CoreCompileInputs.cache
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\SistemaTecnicaturasUTN.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\SistemaTecnicaturasUTN.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\scopedcss\bundle\SistemaTecnicaturasUTN.styles.css
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\SistemaTecnicaturasUTN.csproj.CopyComplete
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\SistemaTecnicaturasUTN.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\refint\SistemaTecnicaturasUTN.dll
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\SistemaTecnicaturasUTN.pdb
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\SistemaTecnicaturasUTN.genruntimeconfig.cache
+C:\Users\ALUMNO\Desktop\TPIProgramacionII\SistemaTecnicaturasUTN\SistemaTecnicaturasUTN\obj\Debug\net6.0\ref\SistemaTecnicaturasUTN.dll

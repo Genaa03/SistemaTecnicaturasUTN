@@ -6,13 +6,13 @@ namespace DataAPI.Datos.Implementaciones
 {
     public class AyudanteDAO : IAyudanteDAO
     {
-        public DataTable Ingreso()
+        public async Task<DataTable> Ingreso()
         {
             DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros("INGRESO");
             return tabla;
         }
 
-        public List<Alumno> GetAlumnos()
+        public async Task<List<Alumno>> GetAlumnos()
         {
             List<Alumno> alumnos = new List<Alumno>();
 
@@ -43,7 +43,7 @@ namespace DataAPI.Datos.Implementaciones
             return alumnos;
         }
 
-        public List<Alumno2> GetAlumnosConAlta()
+        public async Task<List<Alumno2>> GetAlumnosConAlta()
         {
             List<Alumno2> alumnos = new List<Alumno2>();
 
@@ -122,7 +122,7 @@ namespace DataAPI.Datos.Implementaciones
             return lst;
         }
 
-        public int GetProximoAlumno()
+        public async Task<int> GetProximoAlumno()
         {
             return HelperDAO.ObtenerInstancia().ConsultaNumero("PROXIMO_ALUMNO","@next");
         }
@@ -217,7 +217,7 @@ namespace DataAPI.Datos.Implementaciones
         }
 
 
-        public List<AlumnoAltaBaja> GetAlumnosAlta()
+        public async Task<List<AlumnoAltaBaja>> GetAlumnosAlta()
         {
             List<AlumnoAltaBaja> lst = new List<AlumnoAltaBaja>();
 
@@ -239,7 +239,7 @@ namespace DataAPI.Datos.Implementaciones
             return lst;
         }
 
-        public List<AlumnoAltaBaja> GetAlumnosBaja()
+        public async Task<List<AlumnoAltaBaja>> GetAlumnosBaja()
         {
             List<AlumnoAltaBaja> lst = new List<AlumnoAltaBaja>();
 
@@ -368,7 +368,7 @@ namespace DataAPI.Datos.Implementaciones
         // FORM PROFESORES
         // **************************************************************************************************
 
-        public List<Profesor> GetProfesores()
+        public async Task<List<Profesor>> GetProfesores()
         {
             List<Profesor> profesores = new List<Profesor>();
 
@@ -397,7 +397,7 @@ namespace DataAPI.Datos.Implementaciones
 
             return profesores;
         }
-        public int GetProximoProfesor()
+        public async Task<int> GetProximoProfesor()
         {
             return HelperDAO.ObtenerInstancia().ConsultaNumero("PROXIMO_PROFESOR", "@next");
         }

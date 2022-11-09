@@ -16,9 +16,9 @@ namespace DataAPI.Servicios.Implementaciones
             oDAO = new AyudanteDAO();
         }
 
-        public DataTable Ingreso()
+        public async Task<DataTable> Ingreso()
         {
-            return oDAO.Ingreso();
+            return await oDAO.Ingreso();
         }
         public int AlumnoDarAlta(string apellido, string nombre)
         {
@@ -30,19 +30,19 @@ namespace DataAPI.Servicios.Implementaciones
             return oDAO.AlumnoDarBaja(apellido, nombre);
         }
 
-        public List<Alumno> GetAlumnos()
+        public async Task<List<Alumno>> GetAlumnos()
         {
-            return oDAO.GetAlumnos();
+            return await oDAO.GetAlumnos();
         }
 
-        public List<AlumnoAltaBaja> GetAlumnosAlta()
+        public async Task<List<AlumnoAltaBaja>> GetAlumnosAlta()
         {
-            return oDAO.GetAlumnosAlta();
+            return await oDAO.GetAlumnosAlta();
         }
 
-        public List<AlumnoAltaBaja> GetAlumnosBaja()
+        public async Task<List<AlumnoAltaBaja>> GetAlumnosBaja()
         {
-            return oDAO.GetAlumnosBaja();
+            return await oDAO.GetAlumnosBaja();
         }
 
         public List<Barrio> GetBarrios()
@@ -55,9 +55,9 @@ namespace DataAPI.Servicios.Implementaciones
             return oDAO.GetEstadosCivil();
         }
 
-        public int GetProximoAlumno()
+        public async Task<int> GetProximoAlumno()
         {
-            return oDAO.GetProximoAlumno();
+            return await oDAO.GetProximoAlumno();
         }
 
         public List<SituacionHab> GetSituacionHab()
@@ -79,9 +79,9 @@ namespace DataAPI.Servicios.Implementaciones
         {
             return oDAO.GetTiposDNI();
         }
-        public List<Alumno2> GetAlumnosConAlta()
+        public async Task<List<Alumno2>> GetAlumnosConAlta()
         {
-            return oDAO.GetAlumnosConAlta();
+            return await oDAO.GetAlumnosConAlta();
         }
 
         public bool CrearAlumno(Alumno alumno)
@@ -122,13 +122,13 @@ namespace DataAPI.Servicios.Implementaciones
 
         // FORM PROFESORES
 
-        public int GetProximoProfesor()
+        public async Task<int> GetProximoProfesor()
         {
-            return oDAO.GetProximoProfesor();
+            return await oDAO.GetProximoProfesor();
         }
-        public List<Profesor> GetProfesores()
+        public async Task<List<Profesor>> GetProfesores()
         {
-            return oDAO.GetProfesores();
+            return await oDAO.GetProfesores();
         }
         public bool CrearProfesor(Profesor profesor)
         {

@@ -13,7 +13,7 @@ namespace DataAPI.Datos
 
         private HelperDAO()
         {
-            conexion = new SqlConnection(@"Data Source=localhost;Initial Catalog=TPI_PROGRAMACION;Integrated Security=True"); //SE CAMBIO BD
+            conexion = new SqlConnection(@"Data Source=sqlgabineteinformatico.frc.utn.edu.ar;Initial Catalog=TPI_PROGRAMACION;User ID=alumnolab22;Password=SQL-Alu22"); //SE CAMBIO BD
         }
 
         public static HelperDAO ObtenerInstancia()
@@ -61,6 +61,7 @@ namespace DataAPI.Datos
             DataTable tabla = new DataTable();
             conectar();
 
+            comando.Parameters.Clear();
             comando.CommandText = nombreSP;
 
             tabla.Load(comando.ExecuteReader());
@@ -80,6 +81,7 @@ namespace DataAPI.Datos
             pOut.Direction = ParameterDirection.Output;
             comando.Parameters.Add(pOut);
             comando.ExecuteNonQuery();
+            comando.Parameters.Clear();
 
             desconectar();
 

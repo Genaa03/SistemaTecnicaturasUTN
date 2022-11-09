@@ -20,11 +20,11 @@ namespace SistemaTecnicaturasUTN.Controllers
 
 
         [HttpGet("/profesores")]
-        public IActionResult GetProfesores()
+        public async Task<IActionResult> GetProfesores()
         {
             try
             {
-                List<Profesor> lst = gestor.GetProfesores();
+                List<Profesor> lst = await gestor.GetProfesores();
                 return Ok(lst);
 
             }

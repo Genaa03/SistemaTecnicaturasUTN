@@ -19,26 +19,26 @@ namespace SistemaTecnicaturasUTN.Controllers
         }
 
         [HttpGet("/alumnos")]
-        public IActionResult GetAlumnos()
+        public async Task<IActionResult> GetAlumnos()
         {
             try
             {
-                List<Alumno> lst = gestor.GetAlumnos();
+                List<Alumno> lst = await gestor.GetAlumnos();
                 return Ok(lst);
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
         }
 
         [HttpGet("/alumnosConAlta")]
-        public IActionResult GetAlumnosConAlta()
+        public async Task<IActionResult> GetAlumnosConAlta()
         {
             try
             {
-                List<Alumno2> lst = gestor.GetAlumnosConAlta();
+                List<Alumno2> lst = await gestor.GetAlumnosConAlta();
                 return Ok(lst);
 
             }
@@ -138,35 +138,35 @@ namespace SistemaTecnicaturasUTN.Controllers
                 return Ok(tabla);
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
         }
 
         [HttpGet("/proximoAlumno")]
-        public IActionResult GetProximoAlumno()
+        public async Task<IActionResult> GetProximoAlumno()
         {
 
             try
             {
-                int num = gestor.GetProximoAlumno();
+                int num = await gestor.GetProximoAlumno();
                 return Ok(num);
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
         }
 
         [HttpGet("/alumnosAlta")]
-        public IActionResult GetAlumnosAlta()
+        public async Task<IActionResult> GetAlumnosAlta()
         {
 
             try
             {
-                List<AlumnoAltaBaja> num = gestor.GetAlumnosAlta();
+                List<AlumnoAltaBaja> num = await gestor.GetAlumnosAlta();
                 return Ok(num);
 
             }
@@ -177,12 +177,12 @@ namespace SistemaTecnicaturasUTN.Controllers
         }
 
         [HttpGet("/alumnosBaja")]
-        public IActionResult GetAlumnosBaja()
+        public async Task<IActionResult> GetAlumnosBaja()
         {
 
             try
             {
-                List<AlumnoAltaBaja> num = gestor.GetAlumnosBaja();
+                List<AlumnoAltaBaja> num = await gestor.GetAlumnosBaja();
                 return Ok(num);
 
             }
