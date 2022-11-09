@@ -304,6 +304,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(613, 574);
+            this.ControlBox = false;
             this.Controls.Add(this.lblNroExamen);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.lblPromedio);
@@ -322,7 +323,7 @@
             this.Controls.Add(this.LblFecha);
             this.Controls.Add(this.dtpFecha);
             this.Name = "FormAltaExamen";
-            this.Text = "FormAltaExamen";
+            this.Text = "Alta Examen";
             this.Load += new System.EventHandler(this.FormAltaExamen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudNota)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlumnos)).EndInit();

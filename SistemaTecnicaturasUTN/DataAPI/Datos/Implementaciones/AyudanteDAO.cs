@@ -6,6 +6,12 @@ namespace DataAPI.Datos.Implementaciones
 {
     public class AyudanteDAO : IAyudanteDAO
     {
+        public DataTable Ingreso()
+        {
+            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros("INGRESO");
+            return tabla;
+        }
+
         public List<Alumno> GetAlumnos()
         {
             List<Alumno> alumnos = new List<Alumno>();
@@ -357,5 +363,59 @@ namespace DataAPI.Datos.Implementaciones
         {
             return HelperDAO.ObtenerInstancia().ConsultaNumero("PROXIMO_EXAMEN", "@next");
         }
+
+        // **************************************************************************************************
+        // FORM PROFESORES
+        // **************************************************************************************************
+
+        public List<Profesor> GetProfesores()
+        {
+            List<Profesor> profesores = new List<Profesor>();
+
+            string sp = "OBTENER_PROFESORES";
+            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+
+            foreach (DataRow a in tabla.Rows)
+            {
+                //Mapear un registro a un objeto del modelo de dominio
+                int id = Convert.ToInt32(a["id_profesor"].ToString());
+                string nombreCompleto = a["nombreCompleto"].ToString();
+                string nombre = a["nombre"].ToString();
+                string apellido = a["apellido"].ToString();
+                int tipo_dni = Convert.ToInt32(a["id_tipo_dni"].ToString());
+                string nro_dni = a["nro_dni"].ToString();
+                DateTime fecha_nac = Convert.ToDateTime(a["fec_nac"].ToString());
+                int estado_civil = Convert.ToInt32(a["id_estado_civil"].ToString());
+                int barrio = Convert.ToInt32(a["id_barrio"].ToString());
+                string direccion = a["direccion"].ToString();
+                string titulo = a["titulo_univ"].ToString();
+
+                Profesor prof = new Profesor(id, nombreCompleto, nombre, apellido, tipo_dni, nro_dni, fecha_nac, estado_civil, barrio, direccion, titulo);
+                profesores.Add(prof);
+
+            }
+
+            return profesores;
+        }
+        public int GetProximoProfesor()
+        {
+            return HelperDAO.ObtenerInstancia().ConsultaNumero("PROXIMO_PROFESOR", "@next");
+        }
+        public bool CrearProfesor(Profesor profesor)
+        {
+            return HelperDAO.ObtenerInstancia().InsertarProfesor(profesor);
+        }
+
+        public bool ModificarProfesor(Profesor profesor)
+        {
+            return HelperDAO.ObtenerInstancia().ModificarProfesor(profesor);
+        }
+
+        public bool EliminarProfesor(int id, string nombre, string apellido)
+        {
+            return HelperDAO.ObtenerInstancia().EliminarProfesor(id, nombre, apellido);
+        }
+
+
     }
 }

@@ -168,4 +168,70 @@ CREATE PROCEDURE PROXIMO_EXAMEN
 AS
 BEGIN
 	SET @next = (SELECT MAX(id_examen)+1  FROM examenes);
+
+CREATE PROC CREAR_PROFESOR
+
+@nombre varchar(30),
+@apellido varchar(30),
+@tipo_dni int,
+@nro_dni varchar(10),
+@fec_nac datetime,
+@estado_civil int,
+@barrio int,
+@direccion varchar(100),
+@titulo varchar (100)
+as
+    INSERT INTO profesores(nombre, apellido, id_tipo_dni, nro_dni, fec_nac, id_estado_civil, id_barrio, direccion, titulo_univ)
+    VALUES(@nombre,@apellido,@tipo_dni,@nro_dni,@fec_nac,@estado_civil,@barrio,@direccion,@titulo)
+
+
+CREATE PROC MODIFICAR_PROFESOR
+
+@id int,
+@nombre varchar(30),
+@apellido varchar(30),
+@tipo_dni int,
+@nro_dni varchar(10),
+@fec_nac datetime,
+@estado_civil int,
+@barrio int,
+@direccion varchar(100),
+@titulo varchar(100)
+
+as
+
+    UPDATE profesores
+    SET nombre = @nombre,apellido = @apellido,id_tipo_dni = @tipo_dni,nro_dni = @nro_dni,
+        fec_nac = @fec_nac,id_estado_civil = @estado_civil,
+        id_barrio = @barrio,direccion = @direccion, titulo_univ = @titulo
+    WHERE id_profesor = @id
+
+CREATE PROC ELIMINAR_PROFESOR
+
+@id int,
+@nombre varchar(30),
+@apellido varchar(30)
+
+
+as
+
+    DELETE FROM profesores
+    WHERE id_profesor = @id AND nombre = @nombre AND apellido = @apellido
+
+CREATE PROCEDURE PROXIMO_PROFESOR
+@next int OUTPUT
+AS
+	SET @next = (SELECT MAX(id_profesor)+1  FROM profesores);
+
 END
+
+CREATE PROC OBTENER_PROFESORES
+AS
+select id_profesor, apellido +', '+nombre 'nombreCompleto', nombre, apellido, id_tipo_dni, nro_dni, fec_nac,
+       id_estado_civil,id_barrio, direccion, titulo_univ from profesores
+order by 2
+
+
+create procedure INGRESO
+    as
+    select * from login

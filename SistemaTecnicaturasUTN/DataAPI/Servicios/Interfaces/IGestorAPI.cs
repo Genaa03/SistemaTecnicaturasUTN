@@ -5,6 +5,8 @@ namespace DataAPI.Servicios.Interfaces
 {
     public interface IGestorAPI
     {
+        public DataTable Ingreso();
+
         // FORM INSCRIPCION ALUMNOS
 
         public List<Alumno> GetAlumnos();
@@ -39,5 +41,12 @@ namespace DataAPI.Servicios.Interfaces
         public bool CrearExamen(Examen examen);
         public int GetProximoExamen();
 
+        // FORM PROFESORES
+
+        public int GetProximoProfesor();
+        public List<Profesor> GetProfesores();
+        public bool CrearProfesor(Profesor profesor);
+        public bool ModificarProfesor(Profesor profesor);
+        public bool EliminarProfesor(int id, string nombre, string apellido);
     }
 }

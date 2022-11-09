@@ -7,13 +7,25 @@
     <Compile Update="Presentaciones\FormEliminarAlumno.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Presentaciones\FormEliminarProfesor.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Presentaciones\FormInscripcionAlumno.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Presentaciones\FormAltaBajaAlumno.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Presentaciones\FormInscripcionProfesor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Presentaciones\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Presentaciones\FormModificacionAlumno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Presentaciones\FormModificacionProfesor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Presentaciones\VentanaPrincipal.cs">

@@ -16,6 +16,10 @@ namespace DataAPI.Servicios.Implementaciones
             oDAO = new AyudanteDAO();
         }
 
+        public DataTable Ingreso()
+        {
+            return oDAO.Ingreso();
+        }
         public int AlumnoDarAlta(string apellido, string nombre)
         {
             return oDAO.AlumnoDarAlta(apellido, nombre);
@@ -114,6 +118,31 @@ namespace DataAPI.Servicios.Implementaciones
         public int GetProximoExamen()
         {
             return oDAO.GetProximoExamen();
+        }
+
+        // FORM PROFESORES
+
+        public int GetProximoProfesor()
+        {
+            return oDAO.GetProximoProfesor();
+        }
+        public List<Profesor> GetProfesores()
+        {
+            return oDAO.GetProfesores();
+        }
+        public bool CrearProfesor(Profesor profesor)
+        {
+            return oDAO.CrearProfesor(profesor);
+        }
+
+        public bool ModificarProfesor(Profesor profesor)
+        {
+            return oDAO.ModificarProfesor(profesor);
+        }
+
+        public bool EliminarProfesor(int id, string nombre, string apellido)
+        {
+            return oDAO.EliminarProfesor(id, nombre, apellido);
         }
     }
 }

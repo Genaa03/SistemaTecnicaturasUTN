@@ -63,7 +63,7 @@
             this.btnCambiar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCambiar.Name = "btnCambiar";
             this.btnCambiar.Size = new System.Drawing.Size(100, 27);
-            this.btnCambiar.TabIndex = 101;
+            this.btnCambiar.TabIndex = 1;
             this.btnCambiar.Text = "Cambiar";
             this.btnCambiar.UseVisualStyleBackColor = true;
             this.btnCambiar.Click += new System.EventHandler(this.btnCambiar_Click);
@@ -87,7 +87,7 @@
             this.cboAlumnos.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboAlumnos.Name = "cboAlumnos";
             this.cboAlumnos.Size = new System.Drawing.Size(247, 23);
-            this.cboAlumnos.TabIndex = 99;
+            this.cboAlumnos.TabIndex = 0;
             this.cboAlumnos.SelectedIndexChanged += new System.EventHandler(this.cboAlumnos_SelectedIndexChanged);
             // 
             // txtDireccion
@@ -97,7 +97,7 @@
             this.txtDireccion.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(456, 23);
-            this.txtDireccion.TabIndex = 88;
+            this.txtDireccion.TabIndex = 12;
             // 
             // lblDireccion
             // 
@@ -127,7 +127,7 @@
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(171, 27);
-            this.btnCancelar.TabIndex = 91;
+            this.btnCancelar.TabIndex = 14;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -139,7 +139,7 @@
             this.btnEliminar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(171, 27);
-            this.btnEliminar.TabIndex = 89;
+            this.btnEliminar.TabIndex = 13;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
@@ -197,7 +197,7 @@
             this.cboSituacionHabitacional.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboSituacionHabitacional.Name = "cboSituacionHabitacional";
             this.cboSituacionHabitacional.Size = new System.Drawing.Size(164, 23);
-            this.cboSituacionHabitacional.TabIndex = 84;
+            this.cboSituacionHabitacional.TabIndex = 9;
             // 
             // cboBarrio
             // 
@@ -208,7 +208,7 @@
             this.cboBarrio.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboBarrio.Name = "cboBarrio";
             this.cboBarrio.Size = new System.Drawing.Size(160, 23);
-            this.cboBarrio.TabIndex = 85;
+            this.cboBarrio.TabIndex = 10;
             // 
             // cboSituacionLaboral
             // 
@@ -219,7 +219,7 @@
             this.cboSituacionLaboral.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboSituacionLaboral.Name = "cboSituacionLaboral";
             this.cboSituacionLaboral.Size = new System.Drawing.Size(164, 23);
-            this.cboSituacionLaboral.TabIndex = 87;
+            this.cboSituacionLaboral.TabIndex = 11;
             // 
             // cboEstadoCivil
             // 
@@ -230,7 +230,7 @@
             this.cboEstadoCivil.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboEstadoCivil.Name = "cboEstadoCivil";
             this.cboEstadoCivil.Size = new System.Drawing.Size(160, 23);
-            this.cboEstadoCivil.TabIndex = 82;
+            this.cboEstadoCivil.TabIndex = 8;
             // 
             // lblFechaNacimiento
             // 
@@ -251,7 +251,7 @@
             this.dtpFechaNacimiento.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
             this.dtpFechaNacimiento.Size = new System.Drawing.Size(160, 23);
-            this.dtpFechaNacimiento.TabIndex = 80;
+            this.dtpFechaNacimiento.TabIndex = 6;
             // 
             // cboTecnicatura
             // 
@@ -262,7 +262,7 @@
             this.cboTecnicatura.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboTecnicatura.Name = "cboTecnicatura";
             this.cboTecnicatura.Size = new System.Drawing.Size(164, 23);
-            this.cboTecnicatura.TabIndex = 81;
+            this.cboTecnicatura.TabIndex = 7;
             // 
             // txtDni
             // 
@@ -271,7 +271,7 @@
             this.txtDni.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtDni.Name = "txtDni";
             this.txtDni.Size = new System.Drawing.Size(126, 23);
-            this.txtDni.TabIndex = 78;
+            this.txtDni.TabIndex = 5;
             // 
             // label2
             // 
@@ -304,7 +304,7 @@
             this.cboTipoDni.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboTipoDni.Name = "cboTipoDni";
             this.cboTipoDni.Size = new System.Drawing.Size(70, 23);
-            this.cboTipoDni.TabIndex = 77;
+            this.cboTipoDni.TabIndex = 4;
             // 
             // txtApellido
             // 
@@ -313,7 +313,7 @@
             this.txtApellido.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(137, 23);
-            this.txtApellido.TabIndex = 75;
+            this.txtApellido.TabIndex = 3;
             // 
             // txtNombre
             // 
@@ -322,7 +322,7 @@
             this.txtNombre.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(137, 23);
-            this.txtNombre.TabIndex = 74;
+            this.txtNombre.TabIndex = 2;
             // 
             // lblApellido
             // 
@@ -351,6 +351,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(586, 547);
+            this.ControlBox = false;
             this.Controls.Add(this.btnCambiar);
             this.Controls.Add(this.lblAlumnos);
             this.Controls.Add(this.cboAlumnos);

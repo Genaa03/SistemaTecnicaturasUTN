@@ -154,17 +154,11 @@ namespace FrontUTN.Presentaciones
             if (result.Equals("true"))
             {
                 MessageBox.Show("Examen registrado", "Informe", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Dispose();
             }
             else
             {
                 MessageBox.Show("ERROR. No se pudo registrar el examen", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
-
-
-
 
         }
 
@@ -184,7 +178,6 @@ namespace FrontUTN.Presentaciones
                 {
                     MessageBox.Show("ERROR. Tiene que agregar los alumnos con sus notas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
             }
         }
 
@@ -228,7 +221,6 @@ namespace FrontUTN.Presentaciones
                 examen.QuitarExamen(dgvAlumnos.CurrentRow.Index);
                 dgvAlumnos.Rows.Remove(dgvAlumnos.CurrentRow);
                 CalcularPromedio();
-
             }
         }
     }

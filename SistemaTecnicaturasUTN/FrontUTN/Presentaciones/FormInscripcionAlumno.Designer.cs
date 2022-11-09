@@ -315,6 +315,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 488);
+            this.ControlBox = false;
             this.Controls.Add(this.txtDireccion);
             this.Controls.Add(this.lblDireccion);
             this.Controls.Add(this.lblNroAlumno);

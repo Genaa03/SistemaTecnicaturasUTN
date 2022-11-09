@@ -303,5 +303,139 @@ namespace DataAPI.Datos
             }
             return control;
         }
+
+
+        public bool InsertarProfesor(Profesor a)
+        {
+            bool control = true;
+            SqlTransaction t = null;
+
+            try
+            {
+                conectar();
+                t = conexion.BeginTransaction();
+                comando.Transaction = t;
+                comando.CommandText = "CREAR_PROFESOR";
+
+                // PARAMETROS 
+
+                comando.Parameters.AddWithValue("@nombre", a.nombre);
+                comando.Parameters.AddWithValue("@apellido", a.apellido);
+                comando.Parameters.AddWithValue("@tipo_dni", a.tipo_dni);
+                comando.Parameters.AddWithValue("@nro_dni", a.nro_dni);
+                comando.Parameters.AddWithValue("@fec_nac", a.fecha_nac);
+                comando.Parameters.AddWithValue("@estado_civil", a.estado_civil);
+                comando.Parameters.AddWithValue("@barrio", a.barrio);
+                comando.Parameters.AddWithValue("@direccion", a.direccion);
+                comando.Parameters.AddWithValue("@titulo", a.titulo_universitario);
+
+                comando.ExecuteNonQuery();
+                comando.Parameters.Clear();
+
+                t.Commit();
+                control = true;
+            }
+            catch (SqlException)
+            {
+                if (t != null)
+                {
+                    t.Rollback();
+                }
+                control = false;
+            }
+            finally
+            {
+                if (conexion != null && conexion.State == ConnectionState.Open)
+                    desconectar();
+            }
+            return control;
+        }
+
+        public bool ModificarProfesor(Profesor a)
+        {
+            bool control = true;
+            SqlTransaction t = null;
+
+            try
+            {
+                conectar();
+                t = conexion.BeginTransaction();
+                comando.Transaction = t;
+                comando.CommandText = "MODIFICAR_PROFESOR";
+
+                // PARAMETROS 
+                comando.Parameters.Clear();
+                comando.Parameters.AddWithValue("@id", a.id_profesor);
+                comando.Parameters.AddWithValue("@nombre", a.nombre);
+                comando.Parameters.AddWithValue("@apellido", a.apellido);
+                comando.Parameters.AddWithValue("@tipo_dni", a.tipo_dni);
+                comando.Parameters.AddWithValue("@nro_dni", a.nro_dni);
+                comando.Parameters.AddWithValue("@fec_nac", a.fecha_nac);
+                comando.Parameters.AddWithValue("@estado_civil", a.estado_civil);
+                comando.Parameters.AddWithValue("@barrio", a.barrio);
+                comando.Parameters.AddWithValue("@direccion", a.direccion);
+                comando.Parameters.AddWithValue("@titulo", a.titulo_universitario);
+
+                comando.ExecuteNonQuery();
+                comando.Parameters.Clear();
+
+                t.Commit();
+                control = true;
+            }
+            catch (SqlException)
+            {
+                if (t != null)
+                {
+                    t.Rollback();
+                }
+                control = false;
+            }
+            finally
+            {
+                if (conexion != null && conexion.State == ConnectionState.Open)
+                    desconectar();
+            }
+            return control;
+        }
+
+        public bool EliminarProfesor(int id, string nombre, string apellido)
+        {
+            bool control = true;
+            SqlTransaction t = null;
+
+            try
+            {
+                conectar();
+                t = conexion.BeginTransaction();
+                comando.Transaction = t;
+                comando.CommandText = "ELIMINAR_PROFESOR";
+
+                // PARAMETROS 
+                comando.Parameters.Clear();
+                comando.Parameters.AddWithValue("@id", id);
+                comando.Parameters.AddWithValue("@nombre", nombre);
+                comando.Parameters.AddWithValue("@apellido", apellido);
+
+                comando.ExecuteNonQuery();
+                comando.Parameters.Clear();
+
+                t.Commit();
+                control = true;
+            }
+            catch (SqlException)
+            {
+                if (t != null)
+                {
+                    t.Rollback();
+                }
+                control = false;
+            }
+            finally
+            {
+                if (conexion != null && conexion.State == ConnectionState.Open)
+                    desconectar();
+            }
+            return control;
+        }
     }
 }

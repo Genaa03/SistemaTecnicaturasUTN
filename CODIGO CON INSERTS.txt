@@ -182,9 +182,19 @@ create table detalle_examenes(
 
 )
 
-******************************************************************************
+create table login(
+    id int identity (1,1),
+    usuario varchar(30),
+    contraseña varchar(30)
+)
+
+INSERT INTO login(usuario, contraseña) VALUES ('asd','asd')
+INSERT INTO login(usuario, contraseña) VALUES ('visual','studio')
+INSERT INTO login(usuario, contraseña) VALUES ('program','program')
+
+/******************************************************************************
 *****************************  INSERTS ***************************************
-******************************************************************************
+******************************************************************************/
 
 SET Dateformat dmy
 
