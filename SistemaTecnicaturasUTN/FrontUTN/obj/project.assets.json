@@ -510,24 +510,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ALUMNO\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Gena\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ALUMNO\\Desktop\\TPIProgramacionII\\SistemaTecnicaturasUTN\\FrontUTN\\FrontUTN.csproj",
+      "projectUniqueName": "E:\\Gena\\Facultad\\Programacion\\Programacion II\\TPI\\SistemaTecnicaturasUTN\\FrontUTN\\FrontUTN.csproj",
       "projectName": "FrontUTN",
-      "projectPath": "C:\\Users\\ALUMNO\\Desktop\\TPIProgramacionII\\SistemaTecnicaturasUTN\\FrontUTN\\FrontUTN.csproj",
-      "packagesPath": "C:\\Users\\ALUMNO\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ALUMNO\\Desktop\\TPIProgramacionII\\SistemaTecnicaturasUTN\\FrontUTN\\obj\\",
+      "projectPath": "E:\\Gena\\Facultad\\Programacion\\Programacion II\\TPI\\SistemaTecnicaturasUTN\\FrontUTN\\FrontUTN.csproj",
+      "packagesPath": "C:\\Users\\Gena\\.nuget\\packages\\",
+      "outputPath": "E:\\Gena\\Facultad\\Programacion\\Programacion II\\TPI\\SistemaTecnicaturasUTN\\FrontUTN\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\ALUMNO\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Gena\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -541,8 +536,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\ALUMNO\\Desktop\\TPIProgramacionII\\SistemaTecnicaturasUTN\\DataAPI\\DataAPI.csproj": {
-              "projectPath": "C:\\Users\\ALUMNO\\Desktop\\TPIProgramacionII\\SistemaTecnicaturasUTN\\DataAPI\\DataAPI.csproj"
+            "E:\\Gena\\Facultad\\Programacion\\Programacion II\\TPI\\SistemaTecnicaturasUTN\\DataAPI\\DataAPI.csproj": {
+              "projectPath": "E:\\Gena\\Facultad\\Programacion\\Programacion II\\TPI\\SistemaTecnicaturasUTN\\DataAPI\\DataAPI.csproj"
             }
           }
         }
@@ -580,7 +575,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

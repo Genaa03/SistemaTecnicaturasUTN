@@ -55,9 +55,9 @@ namespace DataAPI.Servicios.Implementaciones
             return oDAO.GetEstadosCivil();
         }
 
-        public async Task<int> GetProximoAlumno()
+        public int GetProximoAlumno()
         {
-            return await oDAO.GetProximoAlumno();
+            return oDAO.GetProximoAlumno();
         }
 
         public List<SituacionHab> GetSituacionHab()
@@ -122,9 +122,9 @@ namespace DataAPI.Servicios.Implementaciones
 
         // FORM PROFESORES
 
-        public async Task<int> GetProximoProfesor()
+        public int GetProximoProfesor()
         {
-            return await oDAO.GetProximoProfesor();
+            return oDAO.GetProximoProfesor();
         }
         public async Task<List<Profesor>> GetProfesores()
         {

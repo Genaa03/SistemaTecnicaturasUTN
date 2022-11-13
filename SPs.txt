@@ -235,3 +235,9 @@ order by 2
 create procedure INGRESO
     as
     select * from login
+
+CREATE PROC OBTENER_ALUMNOS_CON_ALTA
+AS
+select id_alumno, apellido +', '+nombre 'nombreCompleto', nombre, apellido, id_tipo_dni, nro_dni, id_tecnicatura, fec_nac, id_estado_civil, id_situacion_laboral, id_situacion_habitacional, id_barrio, direccion, alta from Alumnos
+WHERE Alta = 1
+order by 2

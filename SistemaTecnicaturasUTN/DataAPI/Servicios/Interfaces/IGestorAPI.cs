@@ -12,7 +12,7 @@ namespace DataAPI.Servicios.Interfaces
         public Task<List<Alumno>> GetAlumnos();
         public Task<List<Alumno2>> GetAlumnosConAlta();
         public List<TipoDNI> GetTiposDNI();
-        public Task<int> GetProximoAlumno();
+        public int GetProximoAlumno();
         public List<Tecnicatura> GetTecnicaturas();
         public List<EstadoCivil> GetEstadosCivil();
         public List<SituacionHab> GetSituacionHab();
@@ -43,7 +43,7 @@ namespace DataAPI.Servicios.Interfaces
 
         // FORM PROFESORES
 
-        public Task<int> GetProximoProfesor();
+        public int GetProximoProfesor();
         public Task<List<Profesor>> GetProfesores();
         public bool CrearProfesor(Profesor profesor);
         public bool ModificarProfesor(Profesor profesor);

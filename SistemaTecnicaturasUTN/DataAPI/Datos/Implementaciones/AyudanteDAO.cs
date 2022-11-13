@@ -122,7 +122,7 @@ namespace DataAPI.Datos.Implementaciones
             return lst;
         }
 
-        public async Task<int> GetProximoAlumno()
+        public int GetProximoAlumno()
         {
             return HelperDAO.ObtenerInstancia().ConsultaNumero("PROXIMO_ALUMNO","@next");
         }
@@ -397,7 +397,7 @@ namespace DataAPI.Datos.Implementaciones
 
             return profesores;
         }
-        public async Task<int> GetProximoProfesor()
+        public int GetProximoProfesor()
         {
             return HelperDAO.ObtenerInstancia().ConsultaNumero("PROXIMO_PROFESOR", "@next");
         }

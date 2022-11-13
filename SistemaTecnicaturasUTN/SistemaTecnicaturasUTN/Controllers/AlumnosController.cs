@@ -150,7 +150,7 @@ namespace SistemaTecnicaturasUTN.Controllers
 
             try
             {
-                int num = await gestor.GetProximoAlumno();
+                int num = gestor.GetProximoAlumno();
                 return Ok(num);
 
             }
