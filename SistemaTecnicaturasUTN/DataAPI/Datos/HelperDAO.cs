@@ -25,22 +25,22 @@ namespace DataAPI.Datos
             return instancia;
         }
 
-        private void conectar()
+        private void Conectar()
         {
             conexion.Open();
             comando.Connection = conexion;
             comando.CommandType = CommandType.StoredProcedure;
         }
 
-        private void desconectar()
+        private void Desconectar()
         {
             conexion.Close();
         }
 
-        public DataTable consulta(string nombreSP, List<Parametro> lista)
+        public async Task<DataTable> Consulta(string nombreSP, List<Parametro> lista)
         {
             DataTable tabla = new DataTable();
-            conectar();
+            Conectar();
             comando.Parameters.Clear();
 
             comando.CommandText = nombreSP;
@@ -48,50 +48,50 @@ namespace DataAPI.Datos
             {
                 comando.Parameters.AddWithValue(p.Clave, p.Valor);
             }
-            tabla.Load(comando.ExecuteReader());
+            tabla.Load(await comando.ExecuteReaderAsync());
 
             comando.Parameters.Clear();
 
-            desconectar();
+            Desconectar();
             return tabla;
         }
 
-        public DataTable consultaSinParametros(string nombreSP)
+        public async Task<DataTable> ConsultaSinParametros(string nombreSP)
         {
             DataTable tabla = new DataTable();
-            conectar();
+            Conectar();
 
             comando.Parameters.Clear();
             comando.CommandText = nombreSP;
 
-            tabla.Load(comando.ExecuteReader());
+            tabla.Load(await comando.ExecuteReaderAsync());
 
-            desconectar();
+            Desconectar();
             return tabla;
         }
 
-        public int ConsultaNumero(string nombreSP, string paramSalida)
+        public async Task<int> ConsultaNumero(string nombreSP, string paramSalida)
         {
             SqlParameter pOut = new SqlParameter(paramSalida, SqlDbType.Int);
 
-            conectar();
+            Conectar();
             comando.Parameters.Clear();
             comando.CommandText = nombreSP;
 
             pOut.Direction = ParameterDirection.Output;
             comando.Parameters.Add(pOut);
-            comando.ExecuteNonQuery();
+            await comando.ExecuteNonQueryAsync();
             comando.Parameters.Clear();
 
-            desconectar();
+            Desconectar();
 
             return (int)pOut.Value;
         }
 
-        public int modificacionBD(string nombreSP, List<Parametro> lista)
+        public async Task<int> ModificacionBD(string nombreSP, List<Parametro> lista)
         {
             int filasAfectadas;
-            conectar();
+            Conectar();
             comando.CommandText = nombreSP;
             comando.Parameters.Clear();
             // CARGA PARAMETROS
@@ -100,21 +100,21 @@ namespace DataAPI.Datos
                 comando.Parameters.AddWithValue(p.Clave,p.Valor);
             }
 
-            filasAfectadas = comando.ExecuteNonQuery();
-            desconectar();
+            filasAfectadas = await comando.ExecuteNonQueryAsync();
+            Desconectar();
             comando.Parameters.Clear();
 
             return filasAfectadas;
         }
 
-        public bool ejecutarMD(string spMaestro, string spDetalle, Examen examen)
+        public async Task<bool> EjecutarMD(string spMaestro, string spDetalle, Examen examen)
         {
             bool control = true;
             SqlTransaction t = null;
 
             try
             {
-                conectar();
+                Conectar();
                 t = conexion.BeginTransaction();
                 comando.Transaction = t;
 
@@ -127,11 +127,11 @@ namespace DataAPI.Datos
                 comando.Parameters.AddWithValue("@materia", examen.materia);
                 comando.Parameters.AddWithValue("@fecha", examen.fecha);
 
-                SqlParameter pOut = new SqlParameter("@id", SqlDbType.Int);
+                SqlParameter pOut = new SqlParameter("@Id", SqlDbType.Int);
                 pOut.Direction = ParameterDirection.Output;
                 comando.Parameters.Add(pOut);
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
                 int id = (int)pOut.Value;
                 comando.Parameters.Clear();
 
@@ -147,14 +147,14 @@ namespace DataAPI.Datos
                     comando.Parameters.AddWithValue("@id_alumno", detalle.alumno.id_alumno);
                     comando.Parameters.AddWithValue("@nota", detalle.nota);
 
-                    comando.ExecuteNonQuery();
+                    await comando.ExecuteNonQueryAsync();
                     comando.Parameters.Clear();
                 }
                 t.Commit();
 
                 control = true;
             }
-            catch (Exception)
+            catch
             {
                 if (t != null)
                 {
@@ -164,38 +164,38 @@ namespace DataAPI.Datos
             }
             finally
             {
-                desconectar();
+                Desconectar();
             }
             return control;
         }
 
-        public bool InsertarAlumno(Alumno a)
+        public async Task<bool> InsertarAlumno(Alumno a)
         {
             bool control = true;
             SqlTransaction t = null;
 
             try
             {
-                conectar();
+                Conectar();
                 t = conexion.BeginTransaction();
                 comando.Transaction = t;
                 comando.CommandText = "CREAR_ALUMNO";
                 
                 // PARAMETROS 
 
-                comando.Parameters.AddWithValue("@nombre", a.nombre);
-                comando.Parameters.AddWithValue("@apellido", a.apellido);
-                comando.Parameters.AddWithValue("@tipo_dni", a.tipo_dni);
-                comando.Parameters.AddWithValue("@nro_dni", a.nro_dni);
-                comando.Parameters.AddWithValue("@tecnicatura", a.tecnicatura);
-                comando.Parameters.AddWithValue("@fec_nac", a.fecha_nac);
-                comando.Parameters.AddWithValue("@estado_civil", a.estado_civil);
-                comando.Parameters.AddWithValue("@situacion_lab", a.situacion_laboral);
-                comando.Parameters.AddWithValue("@situacion_hab", a.situacion_habitacional);
-                comando.Parameters.AddWithValue("@barrio", a.barrio);
-                comando.Parameters.AddWithValue("@direccion", a.direccion);
+                comando.Parameters.AddWithValue("@Nombre", a.Nombre);
+                comando.Parameters.AddWithValue("@apellido", a.Apellido);
+                comando.Parameters.AddWithValue("@tipo_dni", a.Tipo_dni);
+                comando.Parameters.AddWithValue("@nro_dni", a.Nro_dni);
+                comando.Parameters.AddWithValue("@tecnicatura", a.Tecnicatura);
+                comando.Parameters.AddWithValue("@fec_nac", a.Fecha_nac);
+                comando.Parameters.AddWithValue("@estado_civil", a.Estado_civil);
+                comando.Parameters.AddWithValue("@situacion_lab", a.Situacion_laboral);
+                comando.Parameters.AddWithValue("@situacion_hab", a.Situacion_habitacional);
+                comando.Parameters.AddWithValue("@barrio", a.Barrio);
+                comando.Parameters.AddWithValue("@direccion", a.Direccion);
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
                 comando.Parameters.Clear();
 
                 t.Commit();
@@ -212,27 +212,27 @@ namespace DataAPI.Datos
             finally
             {
                 if (conexion != null && conexion.State == ConnectionState.Open)
-                    desconectar();
+                    Desconectar();
             }
             return control;
         }
 
-        public bool ModificarAlumno(Alumno2 a)
+        public async Task<bool> ModificarAlumno(Alumno2 a)
         {
             bool control = true;
             SqlTransaction t = null;
 
             try
             {
-                conectar();
+                Conectar();
                 t = conexion.BeginTransaction();
                 comando.Transaction = t;
                 comando.CommandText = "MODIFICAR_ALUMNO";
 
                 // PARAMETROS 
                 comando.Parameters.Clear();
-                comando.Parameters.AddWithValue("@id", a.id_alumno);
-                comando.Parameters.AddWithValue("@nombre", a.nombre);
+                comando.Parameters.AddWithValue("@Id", a.id_alumno);
+                comando.Parameters.AddWithValue("@Nombre", a.nombre);
                 comando.Parameters.AddWithValue("@apellido", a.apellido);
                 comando.Parameters.AddWithValue("@tipo_dni", a.tipo_dni);
                 comando.Parameters.AddWithValue("@nro_dni", a.nro_dni);
@@ -244,7 +244,7 @@ namespace DataAPI.Datos
                 comando.Parameters.AddWithValue("@barrio", a.barrio);
                 comando.Parameters.AddWithValue("@direccion", a.direccion);
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
                 comando.Parameters.Clear();
 
                 t.Commit();
@@ -261,30 +261,28 @@ namespace DataAPI.Datos
             finally
             {
                 if (conexion != null && conexion.State == ConnectionState.Open)
-                    desconectar();
+                    Desconectar();
             }
             return control;
         }
 
-        public bool EliminarAlumno(int id, string nombre, string apellido)
+        public async Task<bool> EliminarAlumno(int id)
         {
             bool control = true;
             SqlTransaction t = null;
 
             try
             {
-                conectar();
+                Conectar();
                 t = conexion.BeginTransaction();
                 comando.Transaction = t;
-                comando.CommandText = "ELIMINAR_ALUMNO";
+                comando.CommandText = "ELIMINAR_ALUMNO2";
 
                 // PARAMETROS 
                 comando.Parameters.Clear();
                 comando.Parameters.AddWithValue("@id", id);
-                comando.Parameters.AddWithValue("@nombre", nombre);
-                comando.Parameters.AddWithValue("@apellido", apellido);
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
                 comando.Parameters.Clear();
 
                 t.Commit();
@@ -301,27 +299,27 @@ namespace DataAPI.Datos
             finally
             {
                 if (conexion != null && conexion.State == ConnectionState.Open)
-                    desconectar();
+                    Desconectar();
             }
             return control;
         }
 
 
-        public bool InsertarProfesor(Profesor a)
+        public async Task<bool> InsertarProfesor(Profesor a)
         {
             bool control = true;
             SqlTransaction t = null;
 
             try
             {
-                conectar();
+                Conectar();
                 t = conexion.BeginTransaction();
                 comando.Transaction = t;
                 comando.CommandText = "CREAR_PROFESOR";
 
                 // PARAMETROS 
 
-                comando.Parameters.AddWithValue("@nombre", a.nombre);
+                comando.Parameters.AddWithValue("@Nombre", a.nombre);
                 comando.Parameters.AddWithValue("@apellido", a.apellido);
                 comando.Parameters.AddWithValue("@tipo_dni", a.tipo_dni);
                 comando.Parameters.AddWithValue("@nro_dni", a.nro_dni);
@@ -331,7 +329,7 @@ namespace DataAPI.Datos
                 comando.Parameters.AddWithValue("@direccion", a.direccion);
                 comando.Parameters.AddWithValue("@titulo", a.titulo_universitario);
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
                 comando.Parameters.Clear();
 
                 t.Commit();
@@ -348,27 +346,27 @@ namespace DataAPI.Datos
             finally
             {
                 if (conexion != null && conexion.State == ConnectionState.Open)
-                    desconectar();
+                    Desconectar();
             }
             return control;
         }
 
-        public bool ModificarProfesor(Profesor a)
+        public async Task<bool> ModificarProfesor(Profesor a)
         {
             bool control = true;
             SqlTransaction t = null;
 
             try
             {
-                conectar();
+                Conectar();
                 t = conexion.BeginTransaction();
                 comando.Transaction = t;
                 comando.CommandText = "MODIFICAR_PROFESOR";
 
                 // PARAMETROS 
                 comando.Parameters.Clear();
-                comando.Parameters.AddWithValue("@id", a.id_profesor);
-                comando.Parameters.AddWithValue("@nombre", a.nombre);
+                comando.Parameters.AddWithValue("@Id", a.id_profesor);
+                comando.Parameters.AddWithValue("@Nombre", a.nombre);
                 comando.Parameters.AddWithValue("@apellido", a.apellido);
                 comando.Parameters.AddWithValue("@tipo_dni", a.tipo_dni);
                 comando.Parameters.AddWithValue("@nro_dni", a.nro_dni);
@@ -378,7 +376,7 @@ namespace DataAPI.Datos
                 comando.Parameters.AddWithValue("@direccion", a.direccion);
                 comando.Parameters.AddWithValue("@titulo", a.titulo_universitario);
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
                 comando.Parameters.Clear();
 
                 t.Commit();
@@ -395,30 +393,30 @@ namespace DataAPI.Datos
             finally
             {
                 if (conexion != null && conexion.State == ConnectionState.Open)
-                    desconectar();
+                    Desconectar();
             }
             return control;
         }
 
-        public bool EliminarProfesor(int id, string nombre, string apellido)
+        public async Task<bool> EliminarProfesor(int id, string nombre, string apellido)
         {
             bool control = true;
             SqlTransaction t = null;
 
             try
             {
-                conectar();
+                Conectar();
                 t = conexion.BeginTransaction();
                 comando.Transaction = t;
                 comando.CommandText = "ELIMINAR_PROFESOR";
 
                 // PARAMETROS 
                 comando.Parameters.Clear();
-                comando.Parameters.AddWithValue("@id", id);
-                comando.Parameters.AddWithValue("@nombre", nombre);
+                comando.Parameters.AddWithValue("@Id", id);
+                comando.Parameters.AddWithValue("@Nombre", nombre);
                 comando.Parameters.AddWithValue("@apellido", apellido);
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
                 comando.Parameters.Clear();
 
                 t.Commit();
@@ -435,7 +433,7 @@ namespace DataAPI.Datos
             finally
             {
                 if (conexion != null && conexion.State == ConnectionState.Open)
-                    desconectar();
+                    Desconectar();
             }
             return control;
         }

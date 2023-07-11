@@ -8,7 +8,7 @@ namespace DataAPI.Datos.Implementaciones
     {
         public async Task<DataTable> Ingreso()
         {
-            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros("INGRESO");
+            DataTable tabla = await HelperDAO.ObtenerInstancia().ConsultaSinParametros("INGRESO");
             return tabla;
         }
 
@@ -17,13 +17,13 @@ namespace DataAPI.Datos.Implementaciones
             List<Alumno> alumnos = new List<Alumno>();
 
             string sp = "OBTENER_ALUMNOS";
-            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+            DataTable tabla = await HelperDAO.ObtenerInstancia().ConsultaSinParametros(sp);
 
             foreach (DataRow a in tabla.Rows)
             {
                 //Mapear un registro a un objeto del modelo de dominio
                 int id = Convert.ToInt32(a["id_alumno"].ToString());
-                string nombre = a["nombre"].ToString();
+                string nombre = a["Nombre"].ToString();
                 string apellido = a["apellido"].ToString();
                 int tipo_dni = Convert.ToInt32(a["id_tipo_dni"].ToString());
                 string nro_dni = a["nro_dni"].ToString();
@@ -48,14 +48,14 @@ namespace DataAPI.Datos.Implementaciones
             List<Alumno2> alumnos = new List<Alumno2>();
 
             string sp = "OBTENER_ALUMNOS_CON_ALTA";
-            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+            DataTable tabla = await HelperDAO.ObtenerInstancia().ConsultaSinParametros(sp);
 
             foreach (DataRow a in tabla.Rows)
             {
                 //Mapear un registro a un objeto del modelo de dominio
                 int id = Convert.ToInt32(a["id_alumno"].ToString());
                 string nombreCompleto = a["nombreCompleto"].ToString();
-                string nombre = a["nombre"].ToString();
+                string nombre = a["Nombre"].ToString();
                 string apellido = a["apellido"].ToString();
                 int tipo_dni = Convert.ToInt32(a["id_tipo_dni"].ToString());
                 string nro_dni = a["nro_dni"].ToString();
@@ -78,12 +78,12 @@ namespace DataAPI.Datos.Implementaciones
 
 
 
-        public List<Barrio> GetBarrios()
+        public async Task<List<Barrio>> GetBarrios()
         {
             List<Barrio> lst = new List<Barrio>();
 
             string sp = "OBTENER_BARRIOS";
-            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+            DataTable tabla = await HelperDAO.ObtenerInstancia().ConsultaSinParametros(sp);
 
             foreach (DataRow a in tabla.Rows)
             {
@@ -100,12 +100,12 @@ namespace DataAPI.Datos.Implementaciones
             return lst;
         }
 
-        public List<EstadoCivil> GetEstadosCivil()
+        public async Task<List<EstadoCivil>> GetEstadosCivil()
         {
             List<EstadoCivil> lst = new List<EstadoCivil>();
 
             string sp = "OBTENER_ESTADOS_CIVIL";
-            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+            DataTable tabla = await HelperDAO.ObtenerInstancia().ConsultaSinParametros(sp);
 
             foreach (DataRow a in tabla.Rows)
             {
@@ -122,17 +122,17 @@ namespace DataAPI.Datos.Implementaciones
             return lst;
         }
 
-        public int GetProximoAlumno()
+        public async Task<int> GetProximoAlumno()
         {
-            return HelperDAO.ObtenerInstancia().ConsultaNumero("PROXIMO_ALUMNO","@next");
+            return await HelperDAO.ObtenerInstancia().ConsultaNumero("PROXIMO_ALUMNO","@next");
         }
 
-        public List<SituacionHab> GetSituacionHab()
+        public async Task<List<SituacionHab>> GetSituacionHab()
         {
             List<SituacionHab> lst = new List<SituacionHab>();
 
             string sp = "OBTENER_SITUACION_HAB";
-            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+            DataTable tabla = await HelperDAO.ObtenerInstancia().ConsultaSinParametros(sp);
 
             foreach (DataRow a in tabla.Rows)
             {
@@ -148,14 +148,14 @@ namespace DataAPI.Datos.Implementaciones
 
             return lst;
         }
-    
 
-        public List<SituacionLab> GetSituacionLab()
+
+        public async Task<List<SituacionLab>> GetSituacionLab()
         {
             List<SituacionLab> lst = new List<SituacionLab>();
 
             string sp = "OBTENER_SITUACION_LAB";
-            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+            DataTable tabla = await HelperDAO.ObtenerInstancia().ConsultaSinParametros(sp);
 
             foreach (DataRow a in tabla.Rows)
             {
@@ -172,12 +172,12 @@ namespace DataAPI.Datos.Implementaciones
             return lst;
         }
 
-        public List<Tecnicatura> GetTecnicaturas()
+        public async Task<List<Tecnicatura>> GetTecnicaturas()
         {
             List<Tecnicatura> lst = new List<Tecnicatura>();
 
             string sp = "OBTENER_TECNICATURAS";
-            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+            DataTable tabla = await HelperDAO.ObtenerInstancia().ConsultaSinParametros(sp);
 
             foreach (DataRow a in tabla.Rows)
             {
@@ -194,12 +194,12 @@ namespace DataAPI.Datos.Implementaciones
             return lst;
         }
 
-        public List<TipoDNI> GetTiposDNI()
+        public async Task<List<TipoDNI>> GetTiposDNI()
         {
             List<TipoDNI> lst = new List<TipoDNI>();
 
             string sp = "OBTENER_TIPOS_DNI";
-            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+            DataTable tabla = await HelperDAO.ObtenerInstancia().ConsultaSinParametros(sp);
 
             foreach (DataRow a in tabla.Rows)
             {
@@ -222,12 +222,12 @@ namespace DataAPI.Datos.Implementaciones
             List<AlumnoAltaBaja> lst = new List<AlumnoAltaBaja>();
 
             string sp = "LISTA_ALUMNOS";
-            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+            DataTable tabla = await HelperDAO.ObtenerInstancia().ConsultaSinParametros(sp);
 
             foreach (DataRow a in tabla.Rows)
             {
                 //Mapear un registro a un objeto del modelo de dominio
-                string nombre = a["nombre"].ToString();
+                string nombre = a["Nombre"].ToString();
                 string apellido = a["apellido"].ToString();
 
                 AlumnoAltaBaja aux = new AlumnoAltaBaja(apellido,nombre);
@@ -244,12 +244,12 @@ namespace DataAPI.Datos.Implementaciones
             List<AlumnoAltaBaja> lst = new List<AlumnoAltaBaja>();
 
             string sp = "LISTA_ALUMNOS_BAJA";
-            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+            DataTable tabla = await HelperDAO.ObtenerInstancia().ConsultaSinParametros(sp);
 
             foreach (DataRow a in tabla.Rows)
             {
                 //Mapear un registro a un objeto del modelo de dominio
-                string nombre = a["nombre"].ToString();
+                string nombre = a["Nombre"].ToString();
                 string apellido = a["apellido"].ToString();
 
                 AlumnoAltaBaja aux = new AlumnoAltaBaja(apellido, nombre);
@@ -261,65 +261,65 @@ namespace DataAPI.Datos.Implementaciones
             return lst;
         }
 
-        public int AlumnoDarBaja(string apellido, string nombre)
+        public async Task<int> AlumnoDarBaja(string apellido, string nombre)
         {
             int filas;
             List<Parametro> lista = new List<Parametro>();
             lista.Add(new Parametro("@apellido", apellido));
-            lista.Add(new Parametro("@nombre", nombre));
+            lista.Add(new Parametro("@Nombre", nombre));
 
             string sp = "SP_BAJA_ALUMNO";
-            filas = HelperDAO.ObtenerInstancia().modificacionBD(sp,lista);
+            filas = await HelperDAO.ObtenerInstancia().ModificacionBD(sp,lista);
 
             lista.Clear();
             return filas;
         }
 
-        public int AlumnoDarAlta(string apellido, string nombre)
+        public async Task<int> AlumnoDarAlta(string apellido, string nombre)
         {
             int filas;
             List<Parametro> lista = new List<Parametro>();
             lista.Add(new Parametro("@apellido", apellido));
-            lista.Add(new Parametro("@nombre", nombre));
+            lista.Add(new Parametro("@Nombre", nombre));
 
             string sp = "SP_ALTA_ALUMNO";
-            filas = HelperDAO.ObtenerInstancia().modificacionBD(sp, lista);
+            filas = await HelperDAO.ObtenerInstancia().ModificacionBD(sp, lista);
 
             lista.Clear();
             return filas;
         }
 
 
-        public bool CrearAlumno(Alumno alumno)
+        public async Task<bool> CrearAlumno(Alumno alumno)
         {
-            return HelperDAO.ObtenerInstancia().InsertarAlumno(alumno);
+            return await HelperDAO.ObtenerInstancia().InsertarAlumno(alumno);
         }
 
-        public bool ModificarAlumno(Alumno2 alumno)
+        public async Task<bool> ModificarAlumno(Alumno2 alumno)
         {
-            return HelperDAO.ObtenerInstancia().ModificarAlumno(alumno);
+            return await HelperDAO.ObtenerInstancia().ModificarAlumno(alumno);
         }
 
-        public bool EliminarAlumno(int id, string nombre, string apellido)
+        public async Task<bool> EliminarAlumno(int id)
         {
-            return HelperDAO.ObtenerInstancia().EliminarAlumno(id,nombre,apellido);
+            return await HelperDAO.ObtenerInstancia().EliminarAlumno(id);
         }
 
         // **************************************************************************************************
         // FORM EXAMENES
         // **************************************************************************************************
 
-        public bool CrearExamen(Examen examen)
+        public async Task<bool> CrearExamen(Examen examen)
         {
-            return HelperDAO.ObtenerInstancia().ejecutarMD("CREAR_EXAMEN", "CREAR_DETALLE_EXAMEN", examen);
+            return await HelperDAO.ObtenerInstancia().EjecutarMD("CREAR_EXAMEN", "CREAR_DETALLE_EXAMEN", examen);
         }
 
-        public List<Materia> GetMaterias()
+        public async Task<List<Materia>> GetMaterias()
         {
             List<Materia> lst = new List<Materia>();
 
             string sp = "OBTENER_MATERIAS";
-            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+            DataTable tabla = await HelperDAO.ObtenerInstancia().ConsultaSinParametros(sp);
 
             foreach (DataRow a in tabla.Rows)
             {
@@ -337,12 +337,12 @@ namespace DataAPI.Datos.Implementaciones
             return lst;
         }
 
-        public List<TipoExamen> GetTipoExamenes()
+        public async Task<List<TipoExamen>> GetTipoExamenes()
         {
             List<TipoExamen> lst = new List<TipoExamen>();
 
             string sp = "OBTENER_TIPOS_EXAMEN";
-            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+            DataTable tabla = await HelperDAO.ObtenerInstancia().ConsultaSinParametros(sp);
 
             foreach (DataRow a in tabla.Rows)
             {
@@ -359,9 +359,9 @@ namespace DataAPI.Datos.Implementaciones
             return lst;
         }
 
-        public int GetProximoExamen()
+        public async Task<int> GetProximoExamen()
         {
-            return HelperDAO.ObtenerInstancia().ConsultaNumero("PROXIMO_EXAMEN", "@next");
+            return await HelperDAO.ObtenerInstancia().ConsultaNumero("PROXIMO_EXAMEN", "@next");
         }
 
         // **************************************************************************************************
@@ -373,14 +373,14 @@ namespace DataAPI.Datos.Implementaciones
             List<Profesor> profesores = new List<Profesor>();
 
             string sp = "OBTENER_PROFESORES";
-            DataTable tabla = HelperDAO.ObtenerInstancia().consultaSinParametros(sp);
+            DataTable tabla = await HelperDAO.ObtenerInstancia().ConsultaSinParametros(sp);
 
             foreach (DataRow a in tabla.Rows)
             {
                 //Mapear un registro a un objeto del modelo de dominio
                 int id = Convert.ToInt32(a["id_profesor"].ToString());
                 string nombreCompleto = a["nombreCompleto"].ToString();
-                string nombre = a["nombre"].ToString();
+                string nombre = a["Nombre"].ToString();
                 string apellido = a["apellido"].ToString();
                 int tipo_dni = Convert.ToInt32(a["id_tipo_dni"].ToString());
                 string nro_dni = a["nro_dni"].ToString();
@@ -397,23 +397,23 @@ namespace DataAPI.Datos.Implementaciones
 
             return profesores;
         }
-        public int GetProximoProfesor()
+        public async Task<int> GetProximoProfesor()
         {
-            return HelperDAO.ObtenerInstancia().ConsultaNumero("PROXIMO_PROFESOR", "@next");
+            return await HelperDAO.ObtenerInstancia().ConsultaNumero("PROXIMO_PROFESOR", "@next");
         }
-        public bool CrearProfesor(Profesor profesor)
+        public async Task<bool> CrearProfesor(Profesor profesor)
         {
-            return HelperDAO.ObtenerInstancia().InsertarProfesor(profesor);
-        }
-
-        public bool ModificarProfesor(Profesor profesor)
-        {
-            return HelperDAO.ObtenerInstancia().ModificarProfesor(profesor);
+            return await HelperDAO.ObtenerInstancia().InsertarProfesor(profesor);
         }
 
-        public bool EliminarProfesor(int id, string nombre, string apellido)
+    public async Task<bool> ModificarProfesor(Profesor profesor)
         {
-            return HelperDAO.ObtenerInstancia().EliminarProfesor(id, nombre, apellido);
+            return await HelperDAO.ObtenerInstancia().ModificarProfesor(profesor);
+        }
+
+public async Task<bool> EliminarProfesor(int id, string nombre, string apellido)
+        {
+            return await HelperDAO.ObtenerInstancia().EliminarProfesor(id, nombre, apellido);
         }
 
 

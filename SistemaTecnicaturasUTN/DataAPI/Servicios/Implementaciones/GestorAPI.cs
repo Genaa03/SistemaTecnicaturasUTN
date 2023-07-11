@@ -9,7 +9,7 @@ namespace DataAPI.Servicios.Implementaciones
 {
     public class GestorAPI : IGestorAPI
     {
-        private IAyudanteDAO oDAO;
+        private readonly IAyudanteDAO oDAO;
 
         public GestorAPI()
         {
@@ -20,14 +20,14 @@ namespace DataAPI.Servicios.Implementaciones
         {
             return await oDAO.Ingreso();
         }
-        public int AlumnoDarAlta(string apellido, string nombre)
+        public async Task<int> AlumnoDarAlta(string apellido, string nombre)
         {
-            return oDAO.AlumnoDarAlta(apellido, nombre);
+            return await oDAO.AlumnoDarAlta(apellido, nombre);
         }
 
-        public int AlumnoDarBaja(string apellido, string nombre)
+        public async Task<int> AlumnoDarBaja(string apellido, string nombre)
         {
-            return oDAO.AlumnoDarBaja(apellido, nombre);
+            return await oDAO.AlumnoDarBaja(apellido, nombre);
         }
 
         public async Task<List<Alumno>> GetAlumnos()
@@ -45,104 +45,104 @@ namespace DataAPI.Servicios.Implementaciones
             return await oDAO.GetAlumnosBaja();
         }
 
-        public List<Barrio> GetBarrios()
+        public async Task<List<Barrio>> GetBarrios()
         {
-            return oDAO.GetBarrios();
+            return await oDAO.GetBarrios();
         }
 
-        public List<EstadoCivil> GetEstadosCivil()
+        public async Task<List<EstadoCivil>> GetEstadosCivil()
         {
-            return oDAO.GetEstadosCivil();
+            return await oDAO.GetEstadosCivil();
         }
 
-        public int GetProximoAlumno()
+        public async Task<int> GetProximoAlumno()
         {
-            return oDAO.GetProximoAlumno();
+            return await oDAO.GetProximoAlumno();
         }
 
-        public List<SituacionHab> GetSituacionHab()
+        public async Task<List<SituacionHab>> GetSituacionHab()
         {
-            return oDAO.GetSituacionHab();
+            return await oDAO.GetSituacionHab();
         }
 
-        public List<SituacionLab> GetSituacionLab()
+        public async Task<List<SituacionLab>> GetSituacionLab()
         {
-            return oDAO.GetSituacionLab();
+            return await oDAO.GetSituacionLab();
         }
 
-        public List<Tecnicatura> GetTecnicaturas()
+        public async Task<List<Tecnicatura>> GetTecnicaturas()
         {
-            return oDAO.GetTecnicaturas();
+            return await oDAO.GetTecnicaturas();
         }
 
-        public List<TipoDNI> GetTiposDNI()
+        public async Task<List<TipoDNI>> GetTiposDNI()
         {
-            return oDAO.GetTiposDNI();
+            return await oDAO.GetTiposDNI();
         }
         public async Task<List<Alumno2>> GetAlumnosConAlta()
         {
             return await oDAO.GetAlumnosConAlta();
         }
 
-        public bool CrearAlumno(Alumno alumno)
+        public async Task<bool> CrearAlumno(Alumno alumno)
         {
-            return oDAO.CrearAlumno(alumno);
+            return await oDAO.CrearAlumno(alumno);
         }
 
-        public bool ModificarAlumno(Alumno2 alumno)
+        public async Task<bool> ModificarAlumno(Alumno2 alumno)
         {
-            return oDAO.ModificarAlumno(alumno);
+            return await oDAO.ModificarAlumno(alumno);
         }
 
-        public bool EliminarAlumno(int id, string nombre, string apellido)
+        public async Task<bool> EliminarAlumno(int id)
         {
-            return oDAO.EliminarAlumno(id,nombre,apellido);
+            return await oDAO.EliminarAlumno(id);
         }
 
         // ALTA EXAMEN
 
 
-        public List<Materia> GetMaterias()
+        public async Task<List<Materia>> GetMaterias()
         {
-            return oDAO.GetMaterias();
+            return await oDAO.GetMaterias();
         }
 
-        public List<TipoExamen> GetTipoExamenes()
+        public async Task<List<TipoExamen>> GetTipoExamenes()
         {
-            return oDAO.GetTipoExamenes();
+            return await oDAO.GetTipoExamenes();
         }
-        public bool CrearExamen(Examen examen)
+        public async Task<bool> CrearExamen(Examen examen)
         {
-            return oDAO.CrearExamen(examen);
+            return await oDAO.CrearExamen(examen);
         }
-        public int GetProximoExamen()
+        public async Task<int> GetProximoExamen()
         {
-            return oDAO.GetProximoExamen();
+            return await oDAO.GetProximoExamen();
         }
 
         // FORM PROFESORES
 
-        public int GetProximoProfesor()
+        public async Task<int> GetProximoProfesor()
         {
-            return oDAO.GetProximoProfesor();
+            return await oDAO.GetProximoProfesor();
         }
         public async Task<List<Profesor>> GetProfesores()
         {
             return await oDAO.GetProfesores();
         }
-        public bool CrearProfesor(Profesor profesor)
+        public async Task<bool> CrearProfesor(Profesor profesor)
         {
-            return oDAO.CrearProfesor(profesor);
+            return await oDAO.CrearProfesor(profesor);
         }
 
-        public bool ModificarProfesor(Profesor profesor)
+        public async Task<bool> ModificarProfesor(Profesor profesor)
         {
-            return oDAO.ModificarProfesor(profesor);
+            return await oDAO.ModificarProfesor(profesor);
         }
 
-        public bool EliminarProfesor(int id, string nombre, string apellido)
+        public async Task<bool> EliminarProfesor(int id, string nombre, string apellido)
         {
-            return oDAO.EliminarProfesor(id, nombre, apellido);
+            return await oDAO.EliminarProfesor(id, nombre, apellido);
         }
     }
 }

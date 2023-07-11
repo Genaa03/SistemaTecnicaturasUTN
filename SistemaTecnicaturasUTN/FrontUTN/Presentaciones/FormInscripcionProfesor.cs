@@ -51,7 +51,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<Barrio>>(result);
             cboBarrio.DataSource = lst;
             cboBarrio.DisplayMember = "barrio";
-            cboBarrio.ValueMember = "id";
+            cboBarrio.ValueMember = "Id";
             cboBarrio.SelectedIndex = -1;
 
         }
@@ -63,7 +63,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<TipoDNI>>(result);
             cboTipoDni.DataSource = lst;
             cboTipoDni.DisplayMember = "tipo_dni";
-            cboTipoDni.ValueMember = "id";
+            cboTipoDni.ValueMember = "Id";
             cboTipoDni.SelectedIndex = -1;
 
         }
@@ -74,14 +74,15 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<EstadoCivil>>(result);
             cboEstadoCivil.DataSource = lst;
             cboEstadoCivil.DisplayMember = "estado_civil";
-            cboEstadoCivil.ValueMember = "id";
+            cboEstadoCivil.ValueMember = "Id";
             cboEstadoCivil.SelectedIndex = -1;
 
         }
 
-        private void ProximoProfesor()
+        private async void ProximoProfesor()
         {
-            lblNroProfesor.Text = "Profesor N°: " + gestor.GetProximoProfesor().ToString();
+            int num = await gestor.GetProximoProfesor();
+            lblNroProfesor.Text = "Profesor N°: " + num.ToString();
         }
 
         private void limpiar()

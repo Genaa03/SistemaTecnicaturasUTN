@@ -153,7 +153,7 @@
             this.dgvAlumnos.ReadOnly = true;
             this.dgvAlumnos.Size = new System.Drawing.Size(545, 173);
             this.dgvAlumnos.TabIndex = 24;
-            this.dgvAlumnos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAlumnos_CellContentClick);
+            this.dgvAlumnos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvAlumnos_CellContentClick);
             // 
             // ColID
             // 
@@ -286,7 +286,7 @@
             this.btnLimpiar.TabIndex = 32;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            this.btnLimpiar.Click += new System.EventHandler(this.BtnLimpiar_Click);
             // 
             // lblNroExamen
             // 

@@ -53,7 +53,7 @@ namespace FrontUTN.Presentaciones
             
             if (dgvDadosBaja.SelectedRows.Count == 1)
             {
-                gestor.AlumnoDarAlta(dgvDadosBaja.CurrentRow.Cells[0].Value.ToString(), dgvDadosBaja.CurrentRow.Cells[1].Value.ToString());
+                await gestor.AlumnoDarAlta(dgvDadosBaja.CurrentRow.Cells[0].Value.ToString(), dgvDadosBaja.CurrentRow.Cells[1].Value.ToString());
                 await cargarAmbas(dgvDadosBaja, dgvHabilitados);
                 MessageBox.Show("Se ha dado de ALTA al alumno correctamente.", "INFO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnBaja.Enabled = false;
@@ -69,7 +69,7 @@ namespace FrontUTN.Presentaciones
         {
             if (dgvHabilitados.SelectedRows.Count == 1)
             {
-                gestor.AlumnoDarBaja(dgvHabilitados.CurrentRow.Cells[0].Value.ToString(), dgvHabilitados.CurrentRow.Cells[1].Value.ToString());
+                await gestor.AlumnoDarBaja(dgvHabilitados.CurrentRow.Cells[0].Value.ToString(), dgvHabilitados.CurrentRow.Cells[1].Value.ToString());
                 await cargarAmbas(dgvDadosBaja, dgvHabilitados);
                 MessageBox.Show("Se ha dado de BAJA al alumno correctamente.", "INFO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnBaja.Enabled = false;

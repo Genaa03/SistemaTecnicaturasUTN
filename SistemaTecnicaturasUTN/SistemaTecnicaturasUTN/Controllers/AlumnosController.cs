@@ -27,7 +27,7 @@ namespace SistemaTecnicaturasUTN.Controllers
                 return Ok(lst);
 
             }
-            catch (Exception e)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
@@ -42,99 +42,99 @@ namespace SistemaTecnicaturasUTN.Controllers
                 return Ok(lst);
 
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
         }
 
         [HttpGet("/barrios")]
-        public IActionResult GetBarrios()
+        public async Task<IActionResult> GetBarrios()
         {
             
             try
             {
-                List<Barrio> tabla = gestor.GetBarrios();
+                List<Barrio> tabla = await gestor.GetBarrios();
                 return Ok(tabla);
 
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
         }
 
         [HttpGet("/tiposDNI")]
-        public IActionResult GetTiposDNI()
+        public async Task<IActionResult> GetTiposDNI()
         {
 
             try
             {
-                List<TipoDNI> tabla = gestor.GetTiposDNI();
+                List<TipoDNI> tabla = await gestor.GetTiposDNI();
                 return Ok(tabla);
 
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
         }
 
         [HttpGet("/tecnicaturas")]
-        public IActionResult GetTecnicaturas()
+        public async Task<IActionResult> GetTecnicaturas()
         {
 
             try
             {
-                List<Tecnicatura> tabla = gestor.GetTecnicaturas();
+                List<Tecnicatura> tabla = await gestor.GetTecnicaturas();
                 return Ok(tabla);
 
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
         }
 
         [HttpGet("/situacionHab")]
-        public IActionResult GetSituacionesHab()
+        public async Task<IActionResult> GetSituacionesHab()
         {
 
             try
             {
-                List<SituacionHab> tabla = gestor.GetSituacionHab();
+                List<SituacionHab> tabla = await gestor.GetSituacionHab();
                 return Ok(tabla);
 
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
         }
 
         [HttpGet("/situacionLab")]
-        public IActionResult GetSituacionesLab()
+        public async Task<IActionResult> GetSituacionesLab()
         {
 
             try
             {
-                List<SituacionLab> tabla = gestor.GetSituacionLab();
+                List<SituacionLab> tabla = await gestor.GetSituacionLab();
                 return Ok(tabla);
 
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
         }
 
         [HttpGet("/estadosCivil")]
-        public IActionResult GetEstadosCivil()
+        public async Task<IActionResult> GetEstadosCivil()
         {
 
             try
             {
-                List<EstadoCivil> tabla = gestor.GetEstadosCivil();
+                List<EstadoCivil> tabla = await gestor.GetEstadosCivil();
                 return Ok(tabla);
 
             }
@@ -150,9 +150,8 @@ namespace SistemaTecnicaturasUTN.Controllers
 
             try
             {
-                int num = gestor.GetProximoAlumno();
+                int num = await gestor.GetProximoAlumno();
                 return Ok(num);
-
             }
             catch (Exception e)
             {
@@ -170,7 +169,7 @@ namespace SistemaTecnicaturasUTN.Controllers
                 return Ok(num);
 
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
@@ -186,7 +185,7 @@ namespace SistemaTecnicaturasUTN.Controllers
                 return Ok(num);
 
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
@@ -194,7 +193,7 @@ namespace SistemaTecnicaturasUTN.Controllers
 
 
         [HttpPost("/inscripcionAlumno")]
-        public IActionResult PostAlumno(Alumno alumno)
+        public async Task<IActionResult> PostAlumno(Alumno alumno)
         {
             try
             {
@@ -203,16 +202,16 @@ namespace SistemaTecnicaturasUTN.Controllers
                     return BadRequest("Datos del alumno incorrectos!");
                 }
 
-                return Ok(gestor.CrearAlumno(alumno));
+                return Ok(await gestor.CrearAlumno(alumno));
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
         }
 
         [HttpPut("/modificacionAlumno")]
-        public IActionResult PutAlumno(Alumno2 alumno)
+        public async Task<IActionResult> PutAlumno(Alumno2 alumno)
         {
             try
             {
@@ -221,29 +220,25 @@ namespace SistemaTecnicaturasUTN.Controllers
                     return BadRequest("Datos del alumno incorrectos!");
                 }
 
-                return Ok(gestor.ModificarAlumno(alumno));
+                return Ok(await gestor.ModificarAlumno(alumno));
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
         }
 
-        [HttpDelete("/eliminacionAlumno")]
-        public IActionResult DeleteAlumno(int id, string nombre, string apellido)
+        [HttpDelete("/eliminacionAlumno/{id}")]
+        public async Task<IActionResult> DeleteAlumno(int id)
         {
 
             try
             {
-                if (String.IsNullOrEmpty(nombre) || String.IsNullOrEmpty(apellido))
-                {
-                    return BadRequest("Datos del alumno incorrectos!");
-                }
 
-                return Ok(gestor.EliminarAlumno(id,nombre,apellido));
+                return Ok(await gestor.EliminarAlumno(id));
 
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }

@@ -11,13 +11,13 @@ namespace DataAPI.Servicios.Interfaces
 
         public Task<List<Alumno>> GetAlumnos();
         public Task<List<Alumno2>> GetAlumnosConAlta();
-        public List<TipoDNI> GetTiposDNI();
-        public int GetProximoAlumno();
-        public List<Tecnicatura> GetTecnicaturas();
-        public List<EstadoCivil> GetEstadosCivil();
-        public List<SituacionHab> GetSituacionHab();
-        public List<SituacionLab> GetSituacionLab();
-        public List<Barrio> GetBarrios();
+        public Task<List<TipoDNI>> GetTiposDNI();
+        public Task<int> GetProximoAlumno();
+        public Task<List<Tecnicatura>> GetTecnicaturas();
+        public Task<List<EstadoCivil>> GetEstadosCivil();
+        public Task<List<SituacionHab>> GetSituacionHab();
+        public Task<List<SituacionLab>> GetSituacionLab();
+        public Task<List<Barrio>> GetBarrios();
 
         // FORM ALTA/BAJA ALUMNOS
 
@@ -25,28 +25,28 @@ namespace DataAPI.Servicios.Interfaces
 
         public Task<List<AlumnoAltaBaja>> GetAlumnosAlta();
 
-        public int AlumnoDarBaja(string apellido, string nombre);
+        public Task<int> AlumnoDarBaja(string apellido, string nombre);
 
-        public int AlumnoDarAlta(string apellido, string nombre);
+        public Task<int> AlumnoDarAlta(string apellido, string nombre);
 
-        public bool CrearAlumno(Alumno alumno);
-        public bool ModificarAlumno(Alumno2 alumno);
-        public bool EliminarAlumno(int id, string nombre, string apellido);
+        public Task<bool> CrearAlumno(Alumno alumno);
+        public Task<bool> ModificarAlumno(Alumno2 alumno);
+        public Task<bool> EliminarAlumno(int id);
 
 
         // FORM ALTA EXAMEN
 
-        public List<Materia> GetMaterias();
-        public List<TipoExamen> GetTipoExamenes();
-        public bool CrearExamen(Examen examen);
-        public int GetProximoExamen();
+        public Task<List<Materia>> GetMaterias();
+        public Task<List<TipoExamen>> GetTipoExamenes();
+        public Task<bool> CrearExamen(Examen examen);
+        public Task<int> GetProximoExamen();
 
         // FORM PROFESORES
 
-        public int GetProximoProfesor();
+        public Task<int> GetProximoProfesor();
         public Task<List<Profesor>> GetProfesores();
-        public bool CrearProfesor(Profesor profesor);
-        public bool ModificarProfesor(Profesor profesor);
-        public bool EliminarProfesor(int id, string nombre, string apellido);
+        public Task<bool> CrearProfesor(Profesor profesor);
+        public Task<bool> ModificarProfesor(Profesor profesor);
+        public Task<bool> EliminarProfesor(int id, string nombre, string apellido);
     }
 }

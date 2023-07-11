@@ -64,7 +64,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<Barrio>>(result);
             cboBarrio.DataSource = lst;
             cboBarrio.DisplayMember = "barrio";
-            cboBarrio.ValueMember = "id";
+            cboBarrio.ValueMember = "Id";
             cboBarrio.SelectedIndex = -1;
 
         }
@@ -76,7 +76,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<TipoDNI>>(result);
             cboTipoDni.DataSource = lst;
             cboTipoDni.DisplayMember = "tipo_dni";
-            cboTipoDni.ValueMember = "id";
+            cboTipoDni.ValueMember = "Id";
             cboTipoDni.SelectedIndex = -1;
 
         }
@@ -87,7 +87,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<EstadoCivil>>(result);
             cboEstadoCivil.DataSource = lst;
             cboEstadoCivil.DisplayMember = "estado_civil";
-            cboEstadoCivil.ValueMember = "id";
+            cboEstadoCivil.ValueMember = "Id";
             cboEstadoCivil.SelectedIndex = -1;
 
         }
@@ -145,7 +145,7 @@ namespace FrontUTN.Presentaciones
 
         private async Task<bool> EliminarProfesor(int id, string nombre, string apellido)
         {
-            string url = "http://localhost:5041/eliminacionProfesor?id=" + id + "&nombre=" + nombre + "&apellido=" + apellido;
+            string url = "http://localhost:5041/eliminacionProfesor?Id=" + id + "&Nombre=" + nombre + "&apellido=" + apellido;
             var result = await ClientSingleton.GetInstance().DeleteAsync(url);
             var lst = JsonConvert.DeserializeObject<bool>(result);
 

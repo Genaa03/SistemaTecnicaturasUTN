@@ -42,8 +42,7 @@ namespace FrontUTN.Presentaciones
 
         private void autoresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Los autores de este proyecto son:\n\n• Freccia, Genaro Farid\n• Bergoglio, Felipe" +
-                "\n• Cepeda, German\n• Virga, Santos José\n• Cuello, Cristian Santiago", "AUTORES", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Autor de este proyecto:\n\n• Freccia, Genaro Farid\n", "AUTOR", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void altaBajaAlumnoToolStripMenuItem_Click(object sender, EventArgs e)

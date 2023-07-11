@@ -20,30 +20,30 @@ namespace SistemaTecnicaturasUTN.Controllers
 
 
         [HttpGet("/materias")]
-        public IActionResult GetMaterias()
+        public async Task<IActionResult> GetMaterias()
         {
             try
             {
-                List<Materia> lst = gestor.GetMaterias();
+                List<Materia> lst = await gestor.GetMaterias();
                 return Ok(lst);
 
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
         }
 
         [HttpGet("/tipoExamenes")]
-        public IActionResult GetTipoExamenes()
+        public async Task<IActionResult> GetTipoExamenes()
         {
             try
             {
-                List<TipoExamen> lst = gestor.GetTipoExamenes();
+                List<TipoExamen> lst = await gestor.GetTipoExamenes();
                 return Ok(lst);
 
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
@@ -51,7 +51,7 @@ namespace SistemaTecnicaturasUTN.Controllers
 
 
         [HttpPost("/crearExamen")]
-        public IActionResult PostExamen(Examen examen)
+        public async Task<IActionResult> PostExamen(Examen examen)
         {
             try
             {
@@ -60,9 +60,9 @@ namespace SistemaTecnicaturasUTN.Controllers
                     return BadRequest("Datos del examen incorrectos!");
                 }
 
-                return Ok(gestor.CrearExamen(examen));
+                return Ok(await gestor.CrearExamen(examen));
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }

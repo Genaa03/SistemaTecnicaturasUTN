@@ -46,6 +46,7 @@ namespace FrontUTN.Presentaciones
             await CargarTiposDNIAsync();
             limpiar();
             habilitar(false);
+            lblNroAlumno.Text = "Alumno N°: ";
         }
 
         private async Task CargarBarriosAsync()
@@ -55,7 +56,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<Barrio>>(result);
             cboBarrio.DataSource = lst;
             cboBarrio.DisplayMember = "barrio";
-            cboBarrio.ValueMember = "id";
+            cboBarrio.ValueMember = "Id";
             cboBarrio.SelectedIndex = -1;
 
         }
@@ -67,7 +68,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<TipoDNI>>(result);
             cboTipoDni.DataSource = lst;
             cboTipoDni.DisplayMember = "tipo_dni";
-            cboTipoDni.ValueMember = "id";
+            cboTipoDni.ValueMember = "Id";
             cboTipoDni.SelectedIndex = -1;
 
         }
@@ -79,7 +80,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<Tecnicatura>>(result);
             cboTecnicatura.DataSource = lst;
             cboTecnicatura.DisplayMember = "tecnicatura";
-            cboTecnicatura.ValueMember = "id";
+            cboTecnicatura.ValueMember = "Id";
             cboTecnicatura.SelectedIndex = -1;
 
         }
@@ -91,7 +92,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<SituacionHab>>(result);
             cboSituacionHabitacional.DataSource = lst;
             cboSituacionHabitacional.DisplayMember = "situacion_hab";
-            cboSituacionHabitacional.ValueMember = "id";
+            cboSituacionHabitacional.ValueMember = "Id";
             cboSituacionHabitacional.SelectedIndex = -1;
 
         }
@@ -103,7 +104,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<SituacionLab>>(result);
             cboSituacionLaboral.DataSource = lst;
             cboSituacionLaboral.DisplayMember = "situacion_lab";
-            cboSituacionLaboral.ValueMember = "id";
+            cboSituacionLaboral.ValueMember = "Id";
             cboSituacionLaboral.SelectedIndex = -1;
 
         }
@@ -115,7 +116,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<EstadoCivil>>(result);
             cboEstadoCivil.DataSource = lst;
             cboEstadoCivil.DisplayMember = "estado_civil";
-            cboEstadoCivil.ValueMember = "id";
+            cboEstadoCivil.ValueMember = "Id";
             cboEstadoCivil.SelectedIndex = -1;
 
         }
@@ -245,6 +246,7 @@ namespace FrontUTN.Presentaciones
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             limpiar();
+            lblNroAlumno.Text = "Alumno N°: ";
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -263,6 +265,7 @@ namespace FrontUTN.Presentaciones
 
                 Alumno2 alu3 = (Alumno2)cboAlumnos.SelectedItem;
                 alu2.id_alumno = alu3.id_alumno;
+                lblNroAlumno.Text = "Alumno N°: " + alu3.id_alumno.ToString();
                 alu2.nombreCompleto = alu3.nombreCompleto;
                 txtApellido.Text = alu3.apellido;
                 txtNombre.Text = alu3.nombre;
@@ -284,6 +287,7 @@ namespace FrontUTN.Presentaciones
             limpiar();
             cboAlumnos.SelectedIndex = -1;
             habilitar(false);
+            lblNroAlumno.Text = "Alumno N°: ";
         }
     }
 }

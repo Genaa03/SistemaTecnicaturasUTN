@@ -56,7 +56,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<Barrio>>(result);
             cboBarrio.DataSource = lst;
             cboBarrio.DisplayMember = "barrio";
-            cboBarrio.ValueMember = "id";
+            cboBarrio.ValueMember = "Id";
             cboBarrio.SelectedIndex = -1;
 
         }
@@ -68,7 +68,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<TipoDNI>>(result);
             cboTipoDni.DataSource = lst;
             cboTipoDni.DisplayMember = "tipo_dni";
-            cboTipoDni.ValueMember = "id";
+            cboTipoDni.ValueMember = "Id";
             cboTipoDni.SelectedIndex = -1;
 
         }
@@ -80,7 +80,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<Tecnicatura>>(result);
             cboTecnicatura.DataSource = lst;
             cboTecnicatura.DisplayMember = "tecnicatura";
-            cboTecnicatura.ValueMember = "id";
+            cboTecnicatura.ValueMember = "Id";
             cboTecnicatura.SelectedIndex = -1;
 
         }
@@ -92,7 +92,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<SituacionHab>>(result);
             cboSituacionHabitacional.DataSource = lst;
             cboSituacionHabitacional.DisplayMember = "situacion_hab";
-            cboSituacionHabitacional.ValueMember = "id";
+            cboSituacionHabitacional.ValueMember = "Id";
             cboSituacionHabitacional.SelectedIndex = -1;
 
         }
@@ -104,7 +104,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<SituacionLab>>(result);
             cboSituacionLaboral.DataSource = lst;
             cboSituacionLaboral.DisplayMember = "situacion_lab";
-            cboSituacionLaboral.ValueMember = "id";
+            cboSituacionLaboral.ValueMember = "Id";
             cboSituacionLaboral.SelectedIndex = -1;
 
         }
@@ -116,7 +116,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<EstadoCivil>>(result);
             cboEstadoCivil.DataSource = lst;
             cboEstadoCivil.DisplayMember = "estado_civil";
-            cboEstadoCivil.ValueMember = "id";
+            cboEstadoCivil.ValueMember = "Id";
             cboEstadoCivil.SelectedIndex = -1;
 
         }
@@ -146,6 +146,7 @@ namespace FrontUTN.Presentaciones
             cboSituacionLaboral.SelectedIndex = -1;
             cboTecnicatura.SelectedIndex = -1;
             cboTipoDni.SelectedIndex = -1;
+            lblNroAlumno.Text = "Alumno N°: ";
         }
 
         private void habilitar(bool h)
@@ -177,6 +178,7 @@ namespace FrontUTN.Presentaciones
                 cboSituacionLaboral.SelectedValue = alu3.situacion_laboral;
                 cboTecnicatura.SelectedValue = alu3.tecnicatura;
                 cboTipoDni.SelectedValue = alu3.tipo_dni;
+                lblNroAlumno.Text = "Alumno N°: "+ alu3.id_alumno.ToString();
                 habilitar(true);
             }
         }
@@ -188,9 +190,9 @@ namespace FrontUTN.Presentaciones
             habilitar(false);
         }
 
-        private async Task<bool> EliminarAlumno(int id, string nombre, string apellido)
+        private async Task<bool> EliminarAlumno(int id)
         {
-            string url = "http://localhost:5041/eliminacionAlumno?id=" + id+ "&nombre=" + nombre+ "&apellido=" + apellido;
+            string url = "http://localhost:5041/eliminacionAlumno?id=" + id;
             var result = await ClientSingleton.GetInstance().DeleteAsync(url);
             var lst = JsonConvert.DeserializeObject<bool>(result);
 
@@ -212,7 +214,7 @@ namespace FrontUTN.Presentaciones
         {
             if (MessageBox.Show("¿Seguro desea eliminar a "+ alu3.nombreCompleto +"?", "ATENCION", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
-                await EliminarAlumno(alu3.id_alumno, alu3.nombre, alu3.apellido);
+                await EliminarAlumno(alu3.id_alumno);
                 cboAlumnos.SelectedIndex = -1;
                 await CargarAlumnosConAltaAsync();
                 limpiar();

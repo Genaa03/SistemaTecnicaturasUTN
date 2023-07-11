@@ -41,7 +41,7 @@ namespace FrontUTN.Presentaciones
             await CargarMateriasAsync();
             await CargarTiposExamenesAsync();
             await CargarAlumnosConAltaAsync();
-            limpiar();
+            Limpiar();
             CalcularPromedio();
             ProximoExamen();
         }
@@ -53,7 +53,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<Materia>>(result);
             CboMateria.DataSource = lst;
             CboMateria.DisplayMember = "materia";
-            CboMateria.ValueMember = "id";
+            CboMateria.ValueMember = "Id";
             CboMateria.SelectedIndex = -1;
 
         }
@@ -65,7 +65,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<TipoExamen>>(result);
             CboTipoExamen.DataSource = lst;
             CboTipoExamen.DisplayMember = "tipo_examen";
-            CboTipoExamen.ValueMember = "id";
+            CboTipoExamen.ValueMember = "Id";
             CboTipoExamen.SelectedIndex = -1;
 
         }
@@ -81,19 +81,20 @@ namespace FrontUTN.Presentaciones
 
         }
 
-        private void ProximoExamen()
+        private async void ProximoExamen()
         {
-            lblNroExamen.Text = "Examen N°: " + gestor.GetProximoExamen();
+            int num = await gestor.GetProximoExamen();
+            lblNroExamen.Text = "Examen N°: " + num;
         }
 
-        private void habilitar(bool v)
+        private void Habilitar(bool v)
         {
             CboTipoExamen.Enabled = v;
             CboMateria.Enabled = v;
             dtpFecha.Enabled = v;
         }
 
-        private void limpiar()
+        private void Limpiar()
         {
             dtpFecha.Value = DateTime.Today;
             CboMateria.SelectedIndex = -1;
@@ -103,7 +104,7 @@ namespace FrontUTN.Presentaciones
             dgvAlumnos.Rows.Clear();
         }
 
-        private bool validar()
+        private bool Validar()
         {
             if (CboMateria.SelectedIndex == -1 || CboTipoExamen.SelectedIndex == -1)
             {
@@ -164,13 +165,13 @@ namespace FrontUTN.Presentaciones
 
         private async void BtnAceptar_Click(object sender, EventArgs e)
         {
-            if (validar())
+            if (Validar())
             {
                 if(dgvAlumnos.Rows.Count > 0) 
                 {
                     await GuardarExamenAsync();
-                    limpiar();
-                    habilitar(true);
+                    Limpiar();
+                    Habilitar(true);
                     CalcularPromedio();
                     ProximoExamen();
                 }
@@ -183,7 +184,7 @@ namespace FrontUTN.Presentaciones
 
         private void BtnAgregar_Click(object sender, EventArgs e)
         {
-            if (validar())
+            if (Validar())
             {
                 foreach (DataGridViewRow row in dgvAlumnos.Rows)
                 {
@@ -202,19 +203,19 @@ namespace FrontUTN.Presentaciones
                 examen.AgregarExamen(detalle);
                 dgvAlumnos.Rows.Add(new object[] { alu.id_alumno, alu.nombreCompleto, nudNota.Value, CboMateria.Text, CboTipoExamen.Text });
 
-                habilitar(false);
+                Habilitar(false);
                 CalcularPromedio();
             }
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private void BtnLimpiar_Click(object sender, EventArgs e)
         {
-            limpiar();
-            habilitar(true);
+            Limpiar();
+            Habilitar(true);
             CalcularPromedio();
         }
 
-        private void dgvAlumnos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DgvAlumnos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvAlumnos.CurrentCell.ColumnIndex == 5)
             {

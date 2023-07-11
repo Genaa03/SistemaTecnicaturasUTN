@@ -54,7 +54,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<Barrio>>(result);
             cboBarrio.DataSource = lst;
             cboBarrio.DisplayMember = "barrio";
-            cboBarrio.ValueMember = "id";
+            cboBarrio.ValueMember = "Id";
             cboBarrio.SelectedIndex = -1;    
 
         }
@@ -66,7 +66,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<TipoDNI>>(result);
             cboTipoDni.DataSource = lst;
             cboTipoDni.DisplayMember = "tipo_dni";
-            cboTipoDni.ValueMember = "id";
+            cboTipoDni.ValueMember = "Id";
             cboTipoDni.SelectedIndex = -1;
 
         }
@@ -78,7 +78,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<Tecnicatura>>(result);
             cboTecnicatura.DataSource = lst;
             cboTecnicatura.DisplayMember = "tecnicatura";
-            cboTecnicatura.ValueMember = "id";
+            cboTecnicatura.ValueMember = "Id";
             cboTecnicatura.SelectedIndex = -1;
 
         }
@@ -90,7 +90,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<SituacionHab>>(result);
             cboSituacionHabitacional.DataSource = lst;
             cboSituacionHabitacional.DisplayMember = "situacion_hab";
-            cboSituacionHabitacional.ValueMember = "id";
+            cboSituacionHabitacional.ValueMember = "Id";
             cboSituacionHabitacional.SelectedIndex = -1;
 
         }
@@ -102,7 +102,7 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<SituacionLab>>(result);
             cboSituacionLaboral.DataSource = lst;
             cboSituacionLaboral.DisplayMember = "situacion_lab";
-            cboSituacionLaboral.ValueMember = "id";
+            cboSituacionLaboral.ValueMember = "Id";
             cboSituacionLaboral.SelectedIndex = -1;
 
         }
@@ -114,14 +114,15 @@ namespace FrontUTN.Presentaciones
             var lst = JsonConvert.DeserializeObject<List<EstadoCivil>>(result);
             cboEstadoCivil.DataSource = lst;
             cboEstadoCivil.DisplayMember = "estado_civil";
-            cboEstadoCivil.ValueMember = "id";
+            cboEstadoCivil.ValueMember = "Id";
             cboEstadoCivil.SelectedIndex = -1;
 
         }
 
-        private void ProximoAlumno()
+        private async void ProximoAlumno()
         {
-            lblNroAlumno.Text = "Alumno N°: " + gestor.GetProximoAlumno().ToString();
+            int num = await gestor.GetProximoAlumno();
+            lblNroAlumno.Text = "Alumno N°: " + num.ToString();
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -178,18 +179,18 @@ namespace FrontUTN.Presentaciones
             //Datos del Alumno
             if (validar())
             {
-                alumno.id = Convert.ToInt32(gestor.GetProximoAlumno());
-                alumno.nombre = txtNombre.Text;
-                alumno.apellido = txtApellido.Text;
-                alumno.tipo_dni = (int)cboTipoDni.SelectedValue;
-                alumno.nro_dni = txtDni.Text;
-                alumno.tecnicatura = (int)cboTecnicatura.SelectedValue;
-                alumno.fecha_nac = dtpFechaNacimiento.Value;
-                alumno.estado_civil = (int)cboEstadoCivil.SelectedValue;
-                alumno.situacion_habitacional = (int)cboSituacionHabitacional.SelectedValue;
-                alumno.situacion_laboral = (int)cboSituacionLaboral.SelectedValue;
-                alumno.barrio = (int)cboEstadoCivil.SelectedValue;
-                alumno.direccion = txtDireccion.Text;
+                alumno.Id = Convert.ToInt32(gestor.GetProximoAlumno());
+                alumno.Nombre = txtNombre.Text;
+                alumno.Apellido = txtApellido.Text;
+                alumno.Tipo_dni = (int)cboTipoDni.SelectedValue;
+                alumno.Nro_dni = txtDni.Text;
+                alumno.Tecnicatura = (int)cboTecnicatura.SelectedValue;
+                alumno.Fecha_nac = dtpFechaNacimiento.Value;
+                alumno.Estado_civil = (int)cboEstadoCivil.SelectedValue;
+                alumno.Situacion_habitacional = (int)cboSituacionHabitacional.SelectedValue;
+                alumno.Situacion_laboral = (int)cboSituacionLaboral.SelectedValue;
+                alumno.Barrio = (int)cboEstadoCivil.SelectedValue;
+                alumno.Direccion = txtDireccion.Text;
 
                 string bodyContent = JsonConvert.SerializeObject(alumno);
 

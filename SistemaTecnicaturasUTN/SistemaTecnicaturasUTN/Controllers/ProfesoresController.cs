@@ -11,7 +11,7 @@ namespace SistemaTecnicaturasUTN.Controllers
     [ApiController]
     public class ProfesoresController : ControllerBase
     {
-        private IGestorAPI gestor;
+        private readonly IGestorAPI gestor;
 
         public ProfesoresController()
         {
@@ -28,14 +28,14 @@ namespace SistemaTecnicaturasUTN.Controllers
                 return Ok(lst);
 
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
         }
 
         [HttpPost("/inscripcionProfesor")]
-        public IActionResult PostProfesor(Profesor profesor)
+        public async Task<IActionResult> PostProfesor(Profesor profesor)
         {
             try
             {
@@ -44,16 +44,16 @@ namespace SistemaTecnicaturasUTN.Controllers
                     return BadRequest("Datos del profesor incorrectos!");
                 }
 
-                return Ok(gestor.CrearProfesor(profesor));
+                return Ok(await gestor.CrearProfesor(profesor));
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
         }
 
         [HttpPut("/modificacionProfesor")]
-        public IActionResult PutProfesor(Profesor profesor)
+        public async Task<IActionResult> PutProfesor(Profesor profesor)
         {
             try
             {
@@ -62,16 +62,16 @@ namespace SistemaTecnicaturasUTN.Controllers
                     return BadRequest("Datos del profesor incorrectos!");
                 }
 
-                return Ok(gestor.ModificarProfesor(profesor));
+                return Ok(await gestor.ModificarProfesor(profesor));
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
         }
 
         [HttpDelete("/eliminacionProfesor")]
-        public IActionResult DeleteProfesor(int id, string nombre, string apellido)
+        public async Task<IActionResult> DeleteProfesor(int id, string nombre, string apellido)
         {
 
             try
@@ -81,10 +81,10 @@ namespace SistemaTecnicaturasUTN.Controllers
                     return BadRequest("Datos del profesor incorrectos!");
                 }
 
-                return Ok(gestor.EliminarProfesor(id, nombre, apellido));
+                return Ok(await gestor.EliminarProfesor(id, nombre, apellido));
 
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Error interno! Intente luego");
             }
